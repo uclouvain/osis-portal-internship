@@ -1,18 +1,5 @@
-import factory
 import factory.fuzzy
-import pendulum
-
-
-def fn_publication_start_date(cohort):
-    return pendulum.today().start_of('month')._datetime
-
-
-def fn_subscription_start_date(cohort):
-    return pendulum.instance(cohort.publication_start_date).subtract(months=1)._datetime
-
-
-def fn_subscription_end_date(cohort):
-    return pendulum.instance(cohort.subscription_start_date).add(months=2)._datetime
+import datetime
 
 
 class CohortFactory(factory.django.DjangoModelFactory):
@@ -23,6 +10,6 @@ class CohortFactory(factory.django.DjangoModelFactory):
     description = factory.fuzzy.FuzzyText()
 
     free_internships_number = 8
-    publication_start_date = factory.LazyAttribute(fn_publication_start_date)
-    subscription_start_date = factory.LazyAttribute(fn_subscription_start_date)
-    subscription_end_date = factory.LazyAttribute(fn_subscription_end_date)
+    publication_start_date = datetime.datetime.today().replace(day=1)
+    subscription_start_date = datetime.datetime.today().replace(day=1).replace(month=datetime.datetime.today().month - 1)
+    subscription_end_date = datetime.datetime.today().replace(day=1).replace(month=datetime.datetime.today().month + 2)
