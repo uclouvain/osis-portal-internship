@@ -26,6 +26,7 @@
 from django.test import TestCase
 
 from internship.models import internship_offer
+from internship.models.internship_offer import InternshipOffer
 from internship.tests.factories.cohort import CohortFactory
 from internship.tests.models import test_organization, test_internship_speciality
 
@@ -56,11 +57,11 @@ class TestInternshipOffer(TestCase):
 
     def test_find_by_speciality(self):
         speciality = self.offer.speciality
-        actual_offers = internship_offer.find_by_speciality(speciality)
+        actual_offers = InternshipOffer.objects.filter(speciality=speciality)
         self.assertIn(self.offer, actual_offers)
 
         speciality = test_internship_speciality.create_speciality(name="radiologie")
-        actual_offers = internship_offer.find_by_speciality(speciality)
+        actual_offers = InternshipOffer.objects.filter(speciality=speciality)
         self.assertNotIn(self.offer, actual_offers)
 
     def test_get_py_pk(self):
@@ -72,12 +73,12 @@ class TestInternshipOffer(TestCase):
         self.assertFalse(internship_offer.find_by_pk(pk))
 
     def test_get_number_selectable(self):
-        actual = internship_offer.cohort_open_for_selection(self.offer.cohort)
+        actual = InternshipOffer.objects.filter(selectable=True, cohort=self.offer.cohort).count() > 0
         self.assertTrue(actual)
 
         self.offer.selectable = False
         self.offer.save()
-        actual = internship_offer.cohort_open_for_selection(self.offer.cohort)
+        actual = InternshipOffer.objects.filter(selectable=True, cohort=self.offer.cohort).count() > 0
         self.assertFalse(actual)
 
     def test_find_selectable_by_speciality_and_cohort(self):

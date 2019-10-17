@@ -24,8 +24,10 @@
 #
 ##############################################################################
 
-from internship.models import organization as mdl_organization
 from django.test import TestCase
+
+from internship.models import organization as mdl_organization
+from internship.models.organization import Organization
 from internship.tests.factories.cohort import CohortFactory
 
 
@@ -61,12 +63,12 @@ class TestSearch(TestCase):
 
 class TestGetAllCities(TestCase):
     def test_with_no_data(self):
-        cities = mdl_organization.get_all_cities()
+        cities = list(Organization.objects.values_list('city', flat=True).distinct('city').order_by('city'))
         self.assertFalse(cities)
 
     def test_with_one_city(self):
         create_organization()
-        cities = mdl_organization.get_all_cities()
+        cities = list(Organization.objects.values_list('city', flat=True).distinct('city').order_by('city'))
         self.assertListEqual(['test'], cities)
 
     def test_with_two_same_cities(self):
@@ -74,7 +76,7 @@ class TestGetAllCities(TestCase):
         self.organization_2 = create_organization(reference='02')
         self.organization_3 = create_organization(reference='03')
         create_organization(city="city")
-        cities = mdl_organization.get_all_cities()
+        cities = list(Organization.objects.values_list('city', flat=True).distinct('city').order_by('city'))
         self.assertListEqual(["city", "test"], cities)
 
 

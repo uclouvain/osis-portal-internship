@@ -24,11 +24,13 @@
 #
 ##############################################################################
 from django.contrib.auth.models import User
-from base.tests.factories.user import UserFactory
-from internship.models import internship_student_information as mdl_student_information
-from base.models import person as mdl_person
-from base.tests.models import test_person
 from django.test import TestCase
+
+from base.models import person as mdl_person
+from base.tests.factories.user import UserFactory
+from base.tests.models import test_person
+from internship.models import internship_student_information as mdl_student_information
+from internship.models.internship_student_information import InternshipStudentInformation
 from internship.tests.factories.cohort import CohortFactory
 
 
@@ -76,11 +78,11 @@ class TestFindByPerson(TestCase):
     def test_with_no_information_for_user(self):
         other_person = test_person.create_person("other", "another")
 
-        student_information = mdl_student_information.find_by_person(other_person)
+        student_information = InternshipStudentInformation.objects.filter(person=other_person)
         self.assertFalse(student_information)
 
     def test_with_information_for_user(self):
-        self.assertEqual(mdl_student_information.find_by_person(self.student_information.person).first(),
+        self.assertEqual(InternshipStudentInformation.objects.filter(person=self.student_information.person).first(),
                          self.student_information)
 
 
@@ -93,9 +95,11 @@ class TestExistsByPerson(TestCase):
 
     def test_with_no_information_for_user(self):
         other_person = test_person.create_person("other", "another")
-        student_information_exists = mdl_student_information.exists_by_person(other_person)
+        student_information_exists = InternshipStudentInformation.objects.filter(person=other_person).exists()
         self.assertFalse(student_information_exists)
 
     def test_with_information_for_user(self):
-        student_information_exists = mdl_student_information.exists_by_person(self.student_information.person)
+        student_information_exists = InternshipStudentInformation.objects.filter(
+            person=self.student_information.person
+        ).exists()
         self.assertTrue(student_information_exists)

@@ -35,11 +35,11 @@ from internship.decorators.global_view_decorators import redirect_if_multiple_re
 from internship.models import cohort as mdl_internship_cohort
 from internship.models import internship as mdl_internship
 from internship.models import internship_choice as mdl_internship_choice
-from internship.models import internship_offer as mdl_internship_offer
-from internship.models import internship_speciality as mdl_internship_speciality
 from internship.models import internship_student_affectation_stat as mdl_student_affectation
 from internship.models import internship_student_information as mdl_student_information
 from internship.models import period as mdl_period
+from internship.models.internship_offer import InternshipOffer
+from internship.models.internship_speciality import InternshipSpeciality
 
 
 @login_required
@@ -55,16 +55,16 @@ def view_student_resume(request, cohort_id):
     periods = mdl_period.Period.objects.filter(cohort=cohort)
     period_ids = periods.values_list("pk", flat=True)
     student_affectations = mdl_student_affectation.InternshipStudentAffectationStat.objects.filter(student=student, period_id__in=period_ids).order_by("period__name")
-    specialities = mdl_internship_speciality.find_by_cohort(cohort)
+    specialities = InternshipSpeciality.objects.filter(cohort=cohort)
     student_choices = mdl_internship_choice.search(student=student, specialities=specialities)
     cohort = mdl_internship_cohort.Cohort.objects.get(pk=cohort_id)
     publication_allowed = cohort.publication_start_date <= datetime.date.today()
     offers = {}
     for affectation in student_affectations:
-        offer = mdl_internship_offer.find_offer(
+        offer = InternshipOffer.objects.filter(
             cohort=cohort,
-            speciality=affectation.speciality,
-            organization=affectation.organization
+            organization=affectation.organization,
+            speciality=affectation.speciality
         ).first()
         try:
             offers[affectation.organization].update({affectation.speciality: offer})
@@ -79,18 +79,3 @@ def view_student_resume(request, cohort_id):
                                                           "cohort": cohort,
                                                           "offers": offers
                                                           })
-
-
-def save_from_form(form, person, cohort):
-    defaults = {
-        "location": form.cleaned_data["location"],
-        "postal_code": form.cleaned_data["postal_code"],
-        "city": form.cleaned_data["city"],
-        "country": form.cleaned_data["country"],
-        "email": form.cleaned_data["email"],
-        "phone_mobile": form.cleaned_data["phone_mobile"],
-        "contest": form.cleaned_data["contest"],
-    }
-
-    mdl_student_information.InternshipStudentInformation.objects.update_or_create(person=person, cohort=cohort,
-                                                                                  defaults=defaults)

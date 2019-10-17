@@ -24,6 +24,7 @@
 #
 ##############################################################################
 from django.db import models
+
 from osis_common.models.serializable_model import SerializableModelAdmin, SerializableModel
 
 
@@ -41,11 +42,3 @@ class InternshipSpeciality(SerializableModel):
 
     def __str__(self):
         return u"%s" % self.name
-
-
-def find_by_cohort(cohort):
-    return InternshipSpeciality.objects.filter(cohort=cohort)
-
-
-def find_selectables(cohort):
-    return find_by_cohort(cohort).filter(selectable=True)

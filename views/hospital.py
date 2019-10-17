@@ -25,17 +25,19 @@
 #
 ############################################################################
 from django.contrib.auth.decorators import login_required, permission_required
+
 from base.views import layout
-from internship.forms.form_search_hospital import SearchHospitalForm
 from internship import models as mdl_internship
 from internship.decorators.cohort_view_decorators import redirect_if_not_in_cohort
+from internship.forms.form_search_hospital import SearchHospitalForm
+from internship.models.organization import Organization
 
 
 @login_required
 @permission_required('internship.can_access_internship', raise_exception=True)
 @redirect_if_not_in_cohort
 def view_hospitals_list(request, cohort_id):
-    cities = mdl_internship.organization.get_all_cities()
+    cities = list(Organization.objects.values_list('city', flat=True).distinct('city').order_by('city'))
     name = ""
     city = ""
     cohort = mdl_internship.cohort.Cohort.objects.get(pk=cohort_id)
