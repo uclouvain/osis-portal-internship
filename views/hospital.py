@@ -52,8 +52,10 @@ def view_hospitals_list(request, cohort_id):
 
     hospitals = mdl_internship.organization.search(cohort, name, city)
 
-    return layout.render(request, "hospitals.html", {'search_form': form,
-                                                     'hospitals': hospitals,
-                                                     'cohort': cohort,
-                                                     'name': name,
-                                                     'city': city})
+    return layout.render(request, "hospitals.html", {
+        'search_form': form,
+        'hospitals': hospitals,
+        'cohort': cohort,
+        'name': name,
+        'city': city
+    })

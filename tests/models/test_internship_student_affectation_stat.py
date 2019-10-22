@@ -62,9 +62,3 @@ class TestSearch(TestCase):
             InternshipStudentAffectationStat.objects.filter(student=self.student).order_by('period__date_start')
         )
         self.assertEqual([expected], actual)
-
-
-
-
-
-

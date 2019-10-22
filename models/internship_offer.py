@@ -31,8 +31,10 @@ from osis_common.models.serializable_model import SerializableModelAdmin, Serial
 
 class InternshipOfferAdmin(SerializableModelAdmin):
     list_display = ('organization', 'speciality', 'cohort', 'title', 'maximum_enrollments', 'master', 'selectable')
-    fieldsets = ((None, {'fields': ('organization', 'speciality', 'cohort', 'title', 'maximum_enrollments', 'master',
-                                    'selectable')}),)
+    fieldsets = ((None, {
+        'fields': ('organization', 'speciality', 'cohort', 'title', 'maximum_enrollments', 'master',
+                   'selectable')
+    }),)
     raw_id_fields = ('organization', 'speciality', 'cohort')
     search_fields = ['organization__name', 'speciality__name']
     list_filter = ['cohort', 'selectable']

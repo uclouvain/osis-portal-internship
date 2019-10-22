@@ -40,7 +40,8 @@ def create_student_information(user, cohort=None, person=None):
 
     if cohort is None:
         cohort = CohortFactory()
-    student_information = mdl_student_information.InternshipStudentInformation(person=person, location="location", cohort=cohort,
+    student_information = mdl_student_information.InternshipStudentInformation(person=person, location="location",
+                                                                               cohort=cohort,
                                                                                postal_code="00", city="city",
                                                                                country="country")
     student_information.save()

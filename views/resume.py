@@ -70,12 +70,13 @@ def view_student_resume(request, cohort_id):
             offers[affectation.organization].update({affectation.speciality: offer})
         except KeyError:
             offers.update({affectation.organization: {affectation.speciality: offer}})
-    return layout.render(request, "student_resume.html", {"student": student,
-                                                          "student_information": student_information,
-                                                          "student_affectations": student_affectations,
-                                                          "student_choices": student_choices,
-                                                          "internships": internships,
-                                                          "publication_allowed": publication_allowed,
-                                                          "cohort": cohort,
-                                                          "offers": offers
-                                                          })
+    return layout.render(request, "student_resume.html", {
+        "student": student,
+        "student_information": student_information,
+        "student_affectations": student_affectations,
+        "student_choices": student_choices,
+        "internships": internships,
+        "publication_allowed": publication_allowed,
+        "cohort": cohort,
+        "offers": offers
+    })
