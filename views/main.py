@@ -36,6 +36,7 @@ from base.views import layout
 from dashboard.views import main as dash_main_view
 from internship.decorators.cohort_view_decorators import redirect_if_not_in_cohort
 from internship.decorators.global_view_decorators import redirect_if_multiple_registrations
+from internship.models.internship_student_information import InternshipStudentInformation
 
 
 @login_required
@@ -55,7 +56,7 @@ def view_internship_home(request, cohort_id):
 def view_cohort_selection(request):
     student = mdl_base.student.find_by_user(request.user)
     if student:
-        cohort_subscriptions = mdl_internship.internship_student_information.find_by_person(student.person)
+        cohort_subscriptions = InternshipStudentInformation.objects.filter(person=student.person)
         if cohort_subscriptions:
             cohorts = [subscription.cohort for subscription in cohort_subscriptions]
             return layout.render(request, "cohort_selection.html", {'cohorts': cohorts})

@@ -27,6 +27,7 @@ from django.test import TestCase
 
 from base.tests.models import test_student
 from internship.models import internship_student_affectation_stat as mdl_student_affectation
+from internship.models.internship_student_affectation_stat import InternshipStudentAffectationStat
 from internship.tests.models import test_organization, test_internship_speciality, test_period
 
 
@@ -50,10 +51,14 @@ class TestSearch(TestCase):
 
     def test_with_no_match(self):
         create_internship_student_affectation_stat(self.other_student)
-        student_affectations = list(mdl_student_affectation.search(student=self.student))
+        student_affectations = list(
+            InternshipStudentAffectationStat.objects.filter(student=self.student).order_by('period__date_start')
+        )
         self.assertFalse(student_affectations)
 
     def test_with_match(self):
         expected = create_internship_student_affectation_stat(self.student)
-        actual = list(mdl_student_affectation.search(student=self.student))
+        actual = list(
+            InternshipStudentAffectationStat.objects.filter(student=self.student).order_by('period__date_start')
+        )
         self.assertEqual([expected], actual)

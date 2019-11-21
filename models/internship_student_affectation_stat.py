@@ -55,7 +55,3 @@ class InternshipStudentAffectationStat(SerializableModel):
 
     def __str__(self):
         return u"%s %s %s %s" % (self.student, self.period, self.organization, self.speciality)
-
-
-def search(student=None):
-    return InternshipStudentAffectationStat.objects.filter(student=student).order_by('period__date_start')

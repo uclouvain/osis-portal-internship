@@ -54,10 +54,6 @@ class Organization(SerializableModel):
         super(Organization, self).save(*args, **kwargs)
 
 
-def find_by_cohort(cohort):
-    return Organization.objects.filter(cohort_id=cohort.pk)
-
-
 def search(cohort, name="", city=""):
     organizations = Organization.objects.filter(cohort=cohort)
 
@@ -68,7 +64,3 @@ def search(cohort, name="", city=""):
         organizations = organizations.filter(city__icontains=city)
 
     return organizations
-
-
-def get_all_cities():
-    return list(Organization.objects.values_list('city', flat=True).distinct('city').order_by('city'))

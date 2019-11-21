@@ -65,15 +65,3 @@ def find_by_user_in_cohort(user, cohort):
         return InternshipStudentInformation.objects.get(person__user=user, cohort=cohort)
     except ObjectDoesNotExist:
         return None
-
-
-def find_by_person_in_cohort(cohort_id, person_id):
-    return InternshipStudentInformation.objects.filter(cohort_id=cohort_id, person_id=person_id)
-
-
-def find_by_person(person):
-    return InternshipStudentInformation.objects.filter(person=person)
-
-
-def exists_by_person(person):
-    return InternshipStudentInformation.objects.filter(person=person).exists()

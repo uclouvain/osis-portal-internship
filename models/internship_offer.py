@@ -65,28 +65,8 @@ def find_selectable_by_speciality_and_cohort(speciality, cohort):
                                           selectable=True).order_by("organization__reference")
 
 
-def find_selectable_by_cohort(cohort):
-    return InternshipOffer.objects.filter(cohort=cohort, selectable=True).order_by("organization__reference")
-
-
-def find_by_speciality(speciality):
-    return InternshipOffer.objects.filter(speciality=speciality)
-
-
-def find_by_cohort(cohort):
-    return InternshipOffer.objects.filter(cohort=cohort)
-
-
 def find_by_pk(a_pk):
     try:
         return InternshipOffer.objects.get(pk=a_pk)
     except ObjectDoesNotExist:
         return None
-
-
-def cohort_open_for_selection(cohort):
-    return InternshipOffer.objects.filter(selectable=True, cohort=cohort).count() > 0
-
-
-def find_offer(speciality, cohort, organization):
-    return InternshipOffer.objects.filter(cohort=cohort, organization=organization, speciality=speciality)

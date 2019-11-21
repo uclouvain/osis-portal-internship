@@ -41,6 +41,7 @@ from internship.decorators.global_view_decorators import redirect_if_multiple_re
 from internship.forms.form_offer_preference import OfferPreferenceFormSet, OfferPreferenceForm
 from internship.models.cohort import Cohort
 from internship.models.internship import Internship
+from internship.models.internship_offer import InternshipOffer
 from internship.models.internship_speciality import InternshipSpeciality
 
 
@@ -53,7 +54,7 @@ def view_internship_selection(request, cohort_id, internship_id=None):
     cohort = mdl_int.cohort.Cohort.objects.get(pk=cohort_id)
     internships = Internship.objects.filter(cohort=cohort).order_by("speciality__name", "name")
 
-    if not mdl_int.internship_offer.cohort_open_for_selection(cohort):
+    if not InternshipOffer.objects.filter(selectable=True, cohort=cohort).count() > 0:
         return layout.render(request, "internship_selection_closed.html", {'cohort': cohort})
 
     if request.POST:
@@ -63,7 +64,7 @@ def view_internship_selection(request, cohort_id, internship_id=None):
 
     current_internship = internships.get(pk=internship_id)
 
-    specialities = mdl_int.internship_speciality.find_selectables(cohort).order_by("name")
+    specialities = InternshipSpeciality.objects.filter(cohort=cohort).filter(selectable=True).order_by("name")
     student = mdl.student.find_by_user(request.user)
     saved_choices = []
 
