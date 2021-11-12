@@ -12,8 +12,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='internshipspeciality',
-            name='learning_unit',
-        ),
+        # Remove LearningUnit Reference for Issue: OSIS-6214
+        # migrations.RemoveField(
+        #     model_name='internshipspeciality',
+        #     name='learning_unit',
+        # ),
     ]

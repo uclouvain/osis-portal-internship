@@ -40,7 +40,8 @@ class Migration(migrations.Migration):
                 ('acronym', models.CharField(max_length=125)),
                 ('mandatory', models.BooleanField(default=False)),
                 ('order_postion', models.IntegerField(default=0)),
-                ('learning_unit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.LearningUnit')),
+                # Remove LearningUnit Reference for Issue OSIS-6214
+                # ('learning_unit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='base.LearningUnit')),
             ],
             options={
                 'abstract': False,
