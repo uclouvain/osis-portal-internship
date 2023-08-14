@@ -32,6 +32,7 @@ from osis_internship_sdk.api import internship_api
 from osis_internship_sdk.model.organization_get import OrganizationGet
 from osis_internship_sdk.model.place_evaluation_get import PlaceEvaluationGet
 
+from base.utils.api_utils import gather_all_api_paginated_results
 from frontoffice.settings.osis_sdk import internship as internship_sdk, utils
 from internship.models.enums.role_choice import ChoiceRole
 from internship.models.score_encoding_utils import DEFAULT_PERIODS
@@ -209,11 +210,15 @@ class InternshipAPIService:
 
     @classmethod
     def get_evaluation_items(cls, cohort, person):
-        return get_paginated_results(
-            InternshipAPIClient().place_evaluation_items_cohort_get(
-                cohort=cohort.name,
-                **utils.build_mandatory_auth_headers(person)
-            )
+        return cls._get_all_evaluation_items_paginated_response(cohort, person).results
+
+    @classmethod
+    @gather_all_api_paginated_results
+    def _get_all_evaluation_items_paginated_response(cls, cohort, person, **kwargs):
+        return InternshipAPIClient().place_evaluation_items_cohort_get(
+            cohort=cohort.name,
+            **utils.build_mandatory_auth_headers(person),
+            **kwargs
         )
 
     @classmethod
