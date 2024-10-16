@@ -23,55 +23,55 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
-from django.conf.urls import url, include
+from django.urls import include, path, re_path
 
 from internship.views import main, hospital, resume, selection, score_encoding, place_evaluation
 from internship.views.master_delegates import manage_delegates, new_delegate, delete_delegate
 
 urlpatterns = [
-    url(r'^$', main.view_internship_role_selection, name="internship"),
+    path('', main.view_internship_role_selection, name="internship"),
 
-    url(r'^student/', include([
-        url(r'^$', main.view_cohort_selection, name="internship_cohort_selection"),
-        url(r'^cohort/(?P<cohort_id>[\w\s-]+)/', include([
-            url(r'^$', main.view_internship_student_home, name='internship_student_home'),
-            url(r'^selection/', include([
-                url(r'^$', selection.view_internship_selection, name='select_internship'),
-                url(r'^ajax/selective_internship/$', selection.get_selective_internship_preferences,
+    path('student/', include([
+        path('', main.view_cohort_selection, name="internship_cohort_selection"),
+        re_path(r'^cohort/(?P<cohort_id>[\w\s-]+)/', include([
+            path('', main.view_internship_student_home, name='internship_student_home'),
+            path('selection/', include([
+                path('', selection.view_internship_selection, name='select_internship'),
+                path('ajax/selective_internship/', selection.get_selective_internship_preferences,
                     name='selective_internship_preferences'),
             ])),
-            url(r'^hospitals/$', hospital.view_hospitals_list, name='hospitals_list'),
-            url(r'^resume/$', resume.view_student_resume, name='student_resume'),
-            url(r'^place_evaluation/', include([
-                url(r'^$', place_evaluation.view_place_evaluations_list, name='place_evaluation_list'),
-                url(r'^(?P<period_name>[\w\s-]+)/$', place_evaluation.view_place_evaluation_form,
+            path('hospitals/', hospital.view_hospitals_list, name='hospitals_list'),
+            path('resume/', resume.view_student_resume, name='student_resume'),
+            path('place_evaluation/', include([
+                path('', place_evaluation.view_place_evaluations_list, name='place_evaluation_list'),
+                re_path(r'^(?P<period_name>[\w\s-]+)/$', place_evaluation.view_place_evaluation_form,
                     name='place_evaluation')
             ])),
         ])),
     ])),
 
-    url(r'^master/', include([
-        url(r'^$', main.view_internship_master_home, name='internship_master_home'),
-        url(r'manage_delegates/', include([
-            url(r'^$', manage_delegates, name='internship_manage_delegates'),
-            url(r'new/(?P<specialty_uuid>[0-9a-f-]+)/(?P<organization_uuid>[0-9a-f-]+)/$', new_delegate,
+    path('master/', include([
+        path('', main.view_internship_master_home, name='internship_master_home'),
+        path('manage_delegates/', include([
+            path('', manage_delegates, name='internship_manage_delegates'),
+            re_path(r'new/(?P<specialty_uuid>[0-9a-f-]+)/(?P<organization_uuid>[0-9a-f-]+)/$', new_delegate,
                 name='internship_new_delegate'),
-            url(r'delete/(?P<allocation_uuid>[0-9a-f-]+)/$', delete_delegate,
+            re_path(r'delete/(?P<allocation_uuid>[0-9a-f-]+)/$', delete_delegate,
                 name='internship_delete_delegate'),
         ])),
-        url(r'^score_encoding/', include([
-            url(r'^$', score_encoding.view_score_encoding, name="internship_score_encoding"),
-            url(r'(?P<specialty_uuid>[0-9a-f-]+)/(?P<organization_uuid>[0-9a-f-]+)/', include([
-                url(r'^$', score_encoding.view_score_encoding_sheet, name='internship_score_encoding_sheet'),
-                url(r'^(?P<affectation_uuid>[0-9a-f-]+)/$',
+        path('score_encoding/', include([
+            path('', score_encoding.view_score_encoding, name="internship_score_encoding"),
+            re_path(r'(?P<specialty_uuid>[0-9a-f-]+)/(?P<organization_uuid>[0-9a-f-]+)/', include([
+                path('', score_encoding.view_score_encoding_sheet, name='internship_score_encoding_sheet'),
+                re_path(r'^(?P<affectation_uuid>[0-9a-f-]+)/$',
                     score_encoding.view_score_encoding_form,
                     name="internship_score_encoding_form"),
             ])),
         ])),
     ])),
 
-    url(r'^ajax/', include([
-       url(r'^(?P<affectation_uuid>[0-9a-f-]+)/validate$',
+    path('ajax/', include([
+       re_path(r'^(?P<affectation_uuid>[0-9a-f-]+)/validate$',
         score_encoding.score_encoding_validate, name="internship_score_encoding_validate"),
     ]))
 ]
