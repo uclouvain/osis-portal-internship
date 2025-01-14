@@ -112,6 +112,9 @@ msgstr ""
 msgid "Conduct clinical examination"
 msgstr ""
 
+msgid "Consult choices provided and affectations results"
+msgstr ""
+
 msgid "Contest"
 msgstr ""
 
@@ -157,6 +160,9 @@ msgstr ""
 msgid "Establish a diagnosis"
 msgstr ""
 
+msgid "Evaluate the experience you had at your internship location"
+msgstr ""
+
 msgid "Evaluation"
 msgstr ""
 
@@ -173,6 +179,9 @@ msgid "Formulate clinical questions"
 msgstr ""
 
 msgid "Fourth choice"
+msgstr ""
+
+msgid "Fulfill your internship specialties and locations preferences"
 msgstr ""
 
 msgid "Generalist"
@@ -256,6 +265,9 @@ msgid "Known to student"
 msgstr ""
 
 msgid "Last name"
+msgstr ""
+
+msgid "Locate the hospitals where you will be doing your internships"
 msgstr ""
 
 msgid "Login"

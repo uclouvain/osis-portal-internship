@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load selection_tags %}
 
 {% load i18n %}
@@ -80,14 +80,14 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{% trans 'Internship' %}</a></li>
-    <li><a href="{% url 'internship_score_encoding'  %}">{% trans 'Score encoding' %}</a></li>
-    <li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{% trans 'Internship' %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'internship_score_encoding'  %}">{% trans 'Score encoding' %}</a></li>
+    <li class="breadcrumb-item">
         <a href="{% url 'internship_score_encoding_sheet' specialty_uuid=specialty.uuid organization_uuid=organization.uuid %}">
             {{ specialty.cohort.name }} - {{ specialty.name }}
         </a>
     </li>
-    <li class="active">{{ student.last_name | upper }}, {{ student.first_name }}</li>
+    <li class="breadcrumb-item active">{{ student.last_name | upper }}, {{ student.first_name }}</li>
 {% endblock %}
 
 {% block content %}
@@ -97,36 +97,41 @@
 
     {% include "template_messages.html" %}
 
-    <div class="panel panel-default">
-    <div class="panel-heading">
-            <h3 class="pull-right">{{ student.last_name | upper }}, {{ student.first_name }}</h3>
-            <h2 class="pull-left" style="margin-right: 20px;">{{ period.name }}</h2>
-            <h4>{{ specialty.cohort.name }} - {{ specialty.name }}</h4>
-            <h4>{{ organization.name }}</h4>
+    <div class="card">
+    <div class="card-heading d-flex align-items-center justify-content-between p-4">
+        <div class="d-flex justify-content-between align-items-center gap-4">
+            <h2>{{ period.name }}</h2>
+            <div>
+                <h5>{{ specialty.name }}</h5>
+                <h5>{{ organization.name }}</h5>
+                <h6>{{ specialty.cohort.name }}</h6>
+            </div>
+        </div>
+        <h3>{{ student.last_name | upper }}, {{ student.first_name }}</h3>
     </div>
-      <div class="panel-body">
+      <div class="card-body">
         <form id="score_encoding_form" method="post" class="form-inline">
         {% csrf_token %}
         <h3>
             {% trans 'Entrustable Professional Activity (EPA)' %}
-            <a data-toggle="modal" data-target="#apd-doc" style="cursor: pointer;">
-                <span class="glyphicon glyphicon-question-sign"></span>
+            <a data-bs-toggle="modal" data-bs-target="#apd-doc" style="cursor: pointer;">
+                <span class="fa fa-question-circle"></span>
             </a>
         </h3>
         <hr/>
         <div class="row">
-            <div class="col-xs-12">
-                <label>{% trans 'Targeted EPA' %}</label>
-                <div class="form-group">
+            <div class="col-12 d-flex py-3">
+                <label class="fw-bold">{% trans 'Targeted EPA' %}</label>
+                <div class="form-group d-flex gap-3 flex-wrap">
                     {% for apd in apds %}
                         {% with apd|only_number as apd_number %}
-                            <div class="checkbox">
+                            <div class="checkbox d-flex gap-1">
                               <label for="{{ apd }}" style="text-align: right; width: 30px;">
-                                  <span data-toggle="tooltip" title="{{ apds_descriptions|get_item:apd_number }}" class="apd-label-text">{{ apd | only_number}}</span>
+                                  <span data-bs-toggle="tooltip" title="{{ apds_descriptions|get_item:apd_number }}" class="apd-label-text">{{ apd | only_number}}</span>
                               </label>
                               <input class="apd-checkbox" type="checkbox" id="{{ apd }}" name="obj-{{ apd }}" value="obj-{{ apd }}"
                                      {% if score and apd|only_number in score.objectives.apds %} checked {% endif %}
-                                     {% if apd_number|add:0 in internship.apds %} checked disabled data-toggle="tooltip" title="{% trans "This APD is required" %}" {% endif %}
+                                     {% if apd_number|add:0 in internship.apds %} checked disabled data-bs-toggle="tooltip" title="{% trans "This APD is required" %}" {% endif %}
                               >
                             </div>
                         {% endwith %}
@@ -138,15 +143,17 @@
         <hr/>
 
         <div class="row">
-            <div id="apd-container">
+            <div id="apd-container" class="gap-1">
             {% for apd in apds %}
                 {% with apd|only_number as apd_number %}
-                <div class="raw-item form-group {% if apd_number|add:0 in internship.apds %}required{% endif %}" id="raw">
-                    <label data-toggle="tooltip" title="{{ apds_descriptions|get_item:apd_number }}" for="{{ apd }}" class="control-label col-xs-2 col-sm-4 text-center" style="text-decoration: underline; text-decoration-style: dotted;
-     line-height:2.5; cursor: help;">APD {{ apd_number }}</label>
-                    {% endwith %}
-                    <div class="col-xs-8">
-                    <select style="width: 100%;" class="form-control" name="{{ apd }}" id="input-{{ apd }}" disabled>
+                <div class="d-flex justify-content-center raw-item form-group {% if apd_number|add:0 in internship.apds %}required{% endif %}" id="raw">
+                    <div class="col-3">
+                        <label data-bs-toggle="tooltip" title="{{ apds_descriptions|get_item:apd_number }}" for="{{ apd }}" class="fw-bold control-label text-end" style="text-decoration: underline; text-decoration-style: dotted;
+         line-height:2.5; cursor: help;">APD {{ apd_number }}</label>
+                        {% endwith %}
+                    </div>
+                    <div class="col-6">
+                    <select style="width: 100%;" class="form-select" name="{{ apd }}" id="input-{{ apd }}" disabled>
                         <option value="">-</option>
                         {% for grade in available_grades %}
                             <option value="{{ grade }}" {% if score and score|get_attr:apd == grade %} selected {% endif %}>{{ grade }}</option>
@@ -159,11 +166,11 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12" style="margin-top: 20px; margin-bottom: 20px;">
+            <div class="col-12 my-5">
                 <table class="table">
                     <thead>
-                        <tr>
-                            <h5><b>{% trans 'Autonomy level (% of students according to periods)' %}</b></h5>
+                        <tr class="border-bottom-1 border-bottom">
+                            <h6><b>{% trans 'Autonomy level (% of students according to periods)' %}</b></h6>
                         </tr>
                         <tr>
                             <th>{% trans 'Grade' %}</th>
@@ -210,26 +217,25 @@
         <h3>{% trans 'Comments' %} </h3>
         <hr/>
         {% for field in comments_fields %}
-            <label for="{{ field.0 }}">{{ field.1 }}</label>
+            <label for="{{ field.0 }}" class="fw-bold">{{ field.1 }}</label>
             <textarea id="{{ field.0 }}" name="{{ field.0 }}" class="form-control" rows="5" style="width: 100%;">{% if score %}{{ score.comments|get_item:field.0 }}{% endif %}</textarea>
-            <br/>
             <br/>
         {% endfor %}
 
         <hr/>
 
-        <div class="row form-group-lg required">
-            <label class="control-label col-xs-8">
+        <div class="form-group-lg required d-flex justify-content-between">
+            <label class="control-label col-8 fw-bold">
                 {% trans "Evaluation conducted in attendance of the internship student ?" %}
             </label>
-            <div class="col-xs-offset-1 col-xs-3 input-group" style="text-align: left;">
-                <label for="yes" class="col-xs-6">
+            <div class="d-flex flex-row gap-5 px-3">
+                <label for="yes">
                     <input type="radio" id="yes" name="presence" value="yes" required
                            {% if request.POST.presence == "yes" or score.student_presence == True %} checked {% endif %}
                     >
                     {% trans 'Yes' %}
                 </label>
-                <label for="no" class="col-xs-6">
+                <label for="no">
                     <input type="radio" id="no" name="presence" value="no" required
                            {% if request.POST.presence == "no" or score.student_presence == False %} checked {% endif %}
                     >
@@ -238,7 +244,7 @@
             </div>
         </div>
         <hr/>
-        <a class="btn btn-primary" data-toggle="modal" data-target="#validation_modal">{% trans 'Save' %}</a>
+        <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#validation_modal">{% trans 'Save' %}</a>
             {% include "fragment/validation_request_modal.html" %}
         </form>
       </div>

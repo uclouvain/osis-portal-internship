@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load i18n %}
 
 {% comment "License" %}
@@ -32,12 +32,12 @@
     <br>
     {% include 'template_messages.html' %}
     <div class="row">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>{% trans "You already have an active account" %}</h4>
+        <div class="col-6">
+            <div class="card card-default">
+                <div class="card-heading">
+                    <h5>{% trans "You already have an active account" %}</h5>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     {% if form.errors %}
                         <p class="text-danger">
                             {% trans 'Username and password not matching' %}
@@ -59,7 +59,7 @@
                             <div class="form-group">
                                 <input type="hidden" name="next" value="{{ next }}"/>
                                 <div class="row">
-                                    <div class="col-md-6 align-content-center">
+                                    <div class="col-6 align-content-center">
                                         <input type="submit" value="{% trans 'Login' %}" class="btn btn-primary"
                                                id="post_login_btn"/>
                                     </div>
@@ -71,16 +71,15 @@
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4>{% trans "You don't have an account" %}</h4>
+        <div class="col-6">
+            <div class="card card-default">
+                <div class="card-heading">
+                    <h5>{% trans "You don't have an account" %}</h5>
                 </div>
-                <div class="panel-body">
+                <div class="card-body">
                     <p>{% trans "Please contact internship administration (STAC) to obtain a user account access" %}</p>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
-
