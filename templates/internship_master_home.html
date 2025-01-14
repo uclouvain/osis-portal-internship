@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 {% load civility %}
@@ -28,57 +28,55 @@
 {% endcomment %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{% trans 'Internships' %}</a></li>
-    <li class="active">{% trans 'Internship master' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{% trans 'Internships' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Internship master' %}</li>
 {% endblock %}
 
 
 {% block content %}
     <div class="page-header">
         <h2>{{ master.civility | get_civility_acronym }} {{ master.person.last_name }}, {{ master.person.first_name }}</h2>
-        <h4>
+        <h5>
             {% if is_master %}
                 {% trans 'Internship master' %}
             {% elif is_delegate %}
                 {% trans 'Internship delegate' %}
             {% endif %}
-        </h4>
-
+        </h5>
     </div>
 
-
-    <div class="panel panel-default">
-        <div class="panel panel-body">
-            <div class="row">
-                <div class="col-md-4">
+    <div class="dashboard-grid">
+        <div class="grid-item" style="grid-area: auto/1;">
+            <a href="{% url 'internship_score_encoding' %}">
+                <i class="icon fa fa-edit"></i>
+                <h4 class="media-heading">
                     <a href="{% url 'internship_score_encoding' %}">
-                        <div class="col-md-12">
-                            <em class="fa fa-edit" style="font-size: 400%; margin-bottom:10px; color: #6699FF;"></em>
-                        </div>
-                        <div class="col-md-12 description">
-                            <h4 class="media-heading">
-                                <a href="{% url 'internship_score_encoding' %}">{% trans 'Score encoding' %}</a>
-                            </h4>
-                            <p>{% trans 'Internship students evaluations' %}</p>
-                        </div>
+                        {% trans 'Score encoding' %}
                     </a>
+                </h4>
+                <div class="description">
+                    <p>{% trans 'Internship students evaluations' %}</p>
                 </div>
-                {% if is_master %}
-                <div class="col-md-4">
-                    <a href="{% url 'internship_manage_delegates' %}">
-                        <div class="col-md-12">
-                            <em class="fa fa-users" style="font-size: 400%; margin-bottom: 10px; color: #6699FF;"></em>
-                        </div>
-                        <div class="col-md-12 description">
-                            <h4 class="media-heading">
-                                <a href="{% url 'internship_manage_delegates' %}">{% trans 'Manage delegates' %}</a>
-                            </h4>
-                            <p>{% trans 'Assign delegates on your allocations' %}</p>
-                        </div>
-                    </a>
-                </div>
-                {% endif %}
-            </div>
+            </a>
         </div>
+        {% if is_master %}
+            <div class="grid-item" style="grid-area: auto/2;">
+                <a href="{% url 'internship_manage_delegates' %}">
+                    <i class="icon fa fa-users"></i>
+                    <h4 class="media-heading">
+                        <a href="{% url 'internship_manage_delegates' %}">
+                            {% trans 'Manage delegates' %}
+                        </a>
+                    </h4>
+                    <div class="description">
+                        <p>{% trans 'Assign delegates on your allocations' %}</p>
+                    </div>
+                </a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
+
+{% block script %}
+    <script src="{% static "js/osis-dashboard.js" %}"></script>
+{% endblock script %}

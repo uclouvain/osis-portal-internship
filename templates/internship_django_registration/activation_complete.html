@@ -29,10 +29,10 @@
 
 {% block content %}
     <h2>{% trans 'User account activated' %}</h2>
-    <div class="panel panel-body">
+    <div class="card card-body">
         {% trans 'Your user account is now active. You can now log in to access the platform.' %}
     </div>
-    <div class="panel panel-body text-center">
+    <div class="card card-body text-center">
         <a class="btn btn-success" href="{% url 'continuing_education_login' %}">{% trans 'Login' %}</a>
     </div>
 {% endblock %}

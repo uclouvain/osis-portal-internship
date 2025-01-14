@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 {% load period %}
@@ -27,8 +27,19 @@
     * see http://www.gnu.org/licenses/.
 {% endcomment %}
 
+{% block custom_style %}
+    <style>
+        .list-group-item {
+            transition: background-color .4s;
+        }
+        .list-group-item:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+{% endblock %}
+
 {% block breadcrumb %}
-    <li class="active">{% trans 'Internships' %}</li>
+    <li class="breadcrumb-item active">{% trans 'Internships' %}</li>
 {% endblock %}
 
 
@@ -39,14 +50,19 @@
 
     <div class="list-group">
         {% for cohort in cohorts|dictsortreversed:"subscription_start_date" %}
-            <a href="{% url 'internship_student_home' cohort_id=cohort.name %}" class="list-group-item">
-                <h4 class="list-group-item-heading">{{ cohort.name }}</h4>
-                {% if cohort|enrollment_active %}
-                    <p class="list-group-item-text">{% trans 'Enrollments from' %} {{ cohort.subscription_start_date|str_to_iso_date }} {% trans 'to' %} {{ cohort.subscription_end_date|str_to_iso_date }}.</p>
-                {% endif %}
-                {% if cohort|publication_active %}
-                    <p class="list-group-item-text">{% trans 'Affectations are available from' %} {{ cohort.publication_start_date|str_to_iso_date }}</p>
-                {% endif %}
+            <a href="{% url 'internship_student_home' cohort_id=cohort.name %}" class="list-group-item p-4 d-flex align-items-center gap-3">
+                <div class="icon">
+                    <i class="fa fa-users-class fa-3x text-primary"></i>
+                </div>
+                <div class="cohort-info">
+                    <h5 class="list-group-item-heading text-primary fw-bold">{{ cohort.name }}</h5>
+                    {% if cohort|enrollment_active %}
+                        <div class="list-group-item-text">{% trans 'Enrollments from' %} {{ cohort.subscription_start_date|str_to_iso_date }} {% trans 'to' %} {{ cohort.subscription_end_date|str_to_iso_date }}.</div>
+                    {% endif %}
+                    {% if cohort|publication_active %}
+                        <div class="list-group-item-text">{% trans 'Affectations are available from' %} {{ cohort.publication_start_date|str_to_iso_date }}</div>
+                    {% endif %}
+                </div>
             </a>
         {% endfor %}
     </div>

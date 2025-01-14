@@ -28,11 +28,11 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">
+            <h5 class="modal-title">
                 {% trans 'Validation' %}
                 <span class="validation-element"></span>
-            </h4>
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
           <div class="modal-body">
             {% trans 'Do you also want to validate the encoding?' %}
@@ -40,7 +40,7 @@
               <span class="validation-element"></span>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans 'Cancel' %}</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{% trans 'Cancel' %}</button>
               <button id="btn-save" onclick="$('#score_encoding_form').submit();" type="submit" class="btn btn-primary" >{% trans 'Save' %}</button>
               <button id="btn-save-and-validate" value="btn-save-validate" name="btn-save-validate" onclick="$('#score_encoding_form').submit();" type="submit" class="btn btn-primary" >{% trans 'Save and validate' %}</button>
           </div>

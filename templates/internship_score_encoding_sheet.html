@@ -1,7 +1,7 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load selection_tags %}
 {% load api_pagination %}
-{% load bootstrap3 %}
+{% load django_bootstrap5 %}
 
 {% load i18n %}
 {% comment "License" %}
@@ -29,9 +29,9 @@
 {% endcomment %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{% trans 'Internship' %}</a></li>
-    <li><a href="{% url 'internship_score_encoding'  %}">{% trans 'Score encoding' %}</a></li>
-    <li class="active">{{ specialty.cohort.name }} - {{ specialty.name }}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{% trans 'Internship' %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'internship_score_encoding'  %}">{% trans 'Score encoding' %}</a></li>
+    <li class="breadcrumb-item active">{{ specialty.cohort.name }} - {{ specialty.name }}</li>
 {% endblock %}
 
 
@@ -40,12 +40,12 @@
         <h2>{% trans 'Score encoding sheet' %}</h2>
     </div>
     <h3>{{ specialty.cohort.name }} - {{ specialty.name }}</h3>
-    <h4>{{ organization.name }}</h4>
+    <h5>{{ organization.name }}</h5>
     <hr/>
 
     {% include "template_messages.html" %}
 
-    <div class="panel panel-default">
+    <div class="card card-default">
         {% if not_validated_count > 0 %}
         <div id="scores-not-validated-warning" class="alert alert-warning" role="alert" style="margin-bottom: 0;">
             <table>
@@ -56,7 +56,7 @@
                             <tr>
                                 <td>
                                     {% trans 'Some grades have not been validated yet on this page, please do not forget to validate' %}
-                                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                    <span class="fa fa-send" aria-hidden="true"></span>
                                 </td>
                             </tr>
                         </table>
@@ -65,14 +65,14 @@
             </table>
         </div>
       {% endif %}
-      <div class="panel-heading">
+      <div class="card-heading">
           <form action="{% url 'internship_score_encoding_sheet' specialty_uuid=specialty_uuid organization_uuid=organization_uuid %}" method="get" id="filter-form">
             <div class="form-group">
                 <label for="period">
                 {% trans 'Period' %}
                 </label>
                 <div>
-                <select class="form-control" name="period" id="period-select">
+                <select class="form-select" name="period" id="period-select">
                     <option value="all">{% trans "All periods" %}</option>
                     {% for period in periods %}
                         <option value="{{ period.name }}" {% if selected_period == period.name %} selected {% endif %}>{{ period.name }}</option>
@@ -82,7 +82,7 @@
             </div>
           </form>
       </div>
-        <div class="panel-body">
+        <div class="card-body">
         <div class="table-responsive">
           <table class="table table-hover">
                 <thead>
@@ -90,8 +90,8 @@
                         <th colspan="2"></th>
                         <th colspan="15" style="text-align:center;">
                             {% trans 'Entrustable Professional Activity (EPA)' %}
-                            <a data-toggle="modal" data-target="#apd-doc" style="cursor: pointer;">
-                                <span class="glyphicon glyphicon-question-sign"></span>
+                            <a data-bs-toggle="modal" data-bs-target="#apd-doc" style="cursor: pointer;">
+                                <span class="fa fa-question-circle"></span>
                             </a>
                         </th>
                         <th colspan="2"></th>
@@ -124,23 +124,23 @@
                         {% endfor %}
                         {% if not affectation.score.validated %}
                         <td style="text-align:center;">
-                            <a id='edit-btn-{{ affectation.uuid }}' class="btn btn-primary btn-xs" href="{% url 'internship_score_encoding_form' specialty_uuid=specialty_uuid organization_uuid=organization_uuid affectation_uuid=affectation.uuid %}">
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            <a id='edit-btn-{{ affectation.uuid }}' class="btn btn-primary btn-sm" href="{% url 'internship_score_encoding_form' specialty_uuid=specialty_uuid organization_uuid=organization_uuid affectation_uuid=affectation.uuid %}">
+                                <span class="fa fa-edit" aria-hidden="true"></span>
                             </a>
                         </td>
                         <td style="text-align:center;">
-                            <a id='validate-btn-{{ affectation.uuid }}' class="btn btn-info btn-xs" style="padding: 1px 5px 1px 4px;" data-toggle="modal" data-target="#validation_modal" data-student="{{ affectation.student.last_name }}" data-period="{{ affectation.period.name }}" data-validate-url="{% url 'internship_score_encoding_validate' affectation_uuid=affectation.uuid %}" data-affectation="{{ affectation.uuid }}">
-                                <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                            <a id='validate-btn-{{ affectation.uuid }}' class="btn btn-info btn-sm text-white" data-bs-toggle="modal" data-bs-target="#validation_modal" data-student="{{ affectation.student.last_name }}" data-period="{{ affectation.period.name }}" data-validate-url="{% url 'internship_score_encoding_validate' affectation_uuid=affectation.uuid %}" data-affectation="{{ affectation.uuid }}">
+                                <span class="fa fa-send" aria-hidden="true"></span>
                             </a>
                         </td>
                         {% else %}
                         <td style="text-align:center;">
-                            <a class="btn btn-primary btn-xs" disabled>
-                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            <a class="btn btn-primary btn-sm disabled">
+                                <span class="fa fa-edit" aria-hidden="true"></span>
                             </a>
                         </td>
                         <td style="text-align:center;">
-                            <span class="glyphicon glyphicon-ok-sign text-success" aria-hidden="true"></span>
+                            <span class="fa fa-check-circle text-success" aria-hidden="true"></span>
                         </td>
                         {% endif %}
                     </tr>
@@ -174,10 +174,14 @@
 
             const affectation = $(event.relatedTarget).data('affectation');
             const validateUrl = $(event.relatedTarget).data('validate-url');
+
             $('#btn-validate').unbind('click').on('click', () => {
                 $('#validation-error-alert').hide();
                 $('#btn-validate').button('loading');
-                $.post(validateUrl, (data) => {
+                $.ajax({url: validateUrl, method: 'POST', data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                }, success: (data) => {
+                    console.log(data);
                     if(!data.error){
                         $('#validation_modal').modal('hide');
                         updateActions(affectation);
@@ -187,16 +191,17 @@
                         errorAlert.show();
                     }
                     $('#btn-validate').button('reset');
-                });
+                }});
             });
         });
+
 
         function updateActions(affectation) {
             const editBtn = document.getElementById(`edit-btn-${affectation}`);
             const validateBtn = document.getElementById(`validate-btn-${affectation}`);
             editBtn.removeAttribute('href');
             editBtn.setAttribute('disabled', '');
-            validateBtn.outerHTML = '<span class="glyphicon glyphicon-ok-sign text-success" aria-hidden="true"></span>';
+            validateBtn.outerHTML = '<span class="fa fa-check-circle text-success" aria-hidden="true"></span>';
             notValidatedCount-=1;
             if(notValidatedCount === 0){
                 $('#scores-not-validated-warning').hide();

@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -26,9 +26,18 @@
     * see http://www.gnu.org/licenses/.
 {% endcomment %}
 
+{% block custom_style %}
+    <style>
+        .dashboard-grid-internship{
+            grid-auto-flow: row;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    </style>
+{% endblock %}
+
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
-    <li class="active">{% trans 'Internships' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Internships' %}</li>
 {% endblock %}
 
 
@@ -37,66 +46,55 @@
         <h2>{% trans 'Internships' %}</h2>
     </div>
 
+    <div class="dashboard-grid dashboard-grid-internship">
 
-    <div class="panel panel-default">
-        <div class="panel panel-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
-                        {% if subscription_allowed %}
-                            <div class="col-xs-2 text-center"><em class="fa fa-archive"
-                                                                 style="font-size: 300%; color: #6699FF;"></em></div>
-                            <div class="col-xs-10">
-                                <h4 class="media-heading"><a
-                                        href="{% url 'select_internship' cohort_id=cohort.name %}">{% trans 'Submit your internship choices' %}</a>
-                                </h4>
-                            </div>
-                        {% else %}
-                            <div class="col-xs-2 text-center"><em class="fa fa-archive"
-                                                                 style="font-size: 300%; color: #CCC;"></em></div>
-                            <div class="col-xs-10">
-                                <h4 class="media-heading"
-                                    style="color: #CCC;">{% trans 'Submit your internship choices' %}</h4>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
-                        <div class="col-xs-2 text-center"><em class="fa fa-user"
-                                                             style="font-size: 300%; color: #6699FF;"></em></div>
-                        <div class="col-xs-10">
-                            <h4 class="media-heading"><a
-                                    href="{% url 'student_resume' cohort_id=cohort.name %}">{% trans 'Sum up of your choices and your affectations' %}</a>
-                            </h4>
-                        </div>
-                    </div>
+        <a href="{% url 'select_internship' cohort_id=cohort.name %}"
+            {% if not subscription_allowed %} class="disabled pe-none" {% endif %}>
+            <div class="grid-item">
+                <i class="icon fa fa-archive"></i>
+                <h4 class="media-heading">
+                    {% trans 'Submit your internship choices' %}
+                </h4>
+                <div class="description">
+                    <p>{% trans 'Fulfill your internship specialties and locations preferences' %}</p>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
-                        <div class="col-xs-2 text-center"><em class="far fa-hospital"
-                                                             style="font-size: 300%; color: #6699FF;"></em></div>
-                        <div class="col-xs-10">
-                            <h4 class="media-heading"><a
-                                    href="{% url 'hospitals_list' cohort_id=cohort.name %}">{% trans 'Hospital list' %}</a>
-                            </h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="row" style="margin-top: 15px; margin-bottom: 15px;">
-                        <div class="col-xs-2 text-center"><em class="fas fa-poll-h"
-                                                             style="font-size: 300%; color: #6699FF;"></em></div>
-                        <div class="col-xs-10">
-                            <h4 class="media-heading"><a
-                                    href="{% url 'place_evaluation_list' cohort_id=cohort.name %}">{% trans 'Internship place evaluation' %}</a>
-                            </h4>
-                        </div>
-                    </div>
+        </a>
+
+        <a href="{% url 'student_resume' cohort_id=cohort.name %}">
+            <div class="grid-item">
+                <i class="icon fa fa-user"></i>
+                <h4 class="media-heading">
+                    {% trans 'Sum up of your choices and your affectations' %}
+                </h4>
+                <div class="description">
+                    <p>{% trans 'Consult choices provided and affectations results' %}</p>
                 </div>
             </div>
-        </div>
+        </a>
+
+        <a href="{% url 'hospitals_list' cohort_id=cohort.name %}">
+            <div class="grid-item">
+                <i class="icon fa fa-hospital"></i>
+                <h4 class="media-heading">
+                    {% trans 'Hospital list' %}
+                </h4>
+                <div class="description">
+                    <p>{% trans 'Locate the hospitals where you will be doing your internships' %}</p>
+                </div>
+            </div>
+        </a>
+
+        <a href="{% url 'place_evaluation_list' cohort_id=cohort.name %}">
+            <div class="grid-item">
+                <i class="icon fa fa-poll-h"></i>
+                <h4 class="media-heading">
+                    {% trans 'Internship place evaluation' %}
+                </h4>
+                <div class="description">
+                    <p>{% trans 'Evaluate the experience you had at your internship location' %}</p>
+                </div>
+            </div>
+        </a>
     </div>
 {% endblock %}
