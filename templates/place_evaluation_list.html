@@ -78,12 +78,13 @@
                             <td class="d-none d-sm-table-cell">{{ affectation.speciality.name }}</td>
                             <td class="d-none d-sm-table-cell">{{ affectation.organization.name }}</td>
                             <td class="text-center">
-                                <a class="btn btn-primary"
-                                        {% if affectation.period|is_past and affectation.period.place_evaluation_active %}
-                                            href="{% url 'place_evaluation' cohort_id=cohort.name period_name=affectation.period.name %}"
-                                        {% else %}
-                                            href="#" disabled
-                                        {% endif %}
+                                <a  {% if affectation.period|is_past and affectation.period.place_evaluation_active %}
+                                        class="btn btn-primary"
+                                        href="{% url 'place_evaluation' cohort_id=cohort.name period_name=affectation.period.name %}"
+                                    {% else %}
+                                        class="btn btn-primary disabled"
+                                        href="#" disabled
+                                    {% endif %}
                                 >
                                     <span class="fa-solid fa-file-pen"></span>
                                 </a>
