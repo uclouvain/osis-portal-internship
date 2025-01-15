@@ -1,6 +1,6 @@
 {% extends "continuing_education_layout.html" %}
 {% load i18n %}
-{% load bootstrap3 %}
+{% load django_bootstrap5 %}
 
 {% comment "License" %}
     * OSIS stands for Open Student Information System. It's an application
@@ -32,24 +32,24 @@
     <h1>{% trans "Internship" %}</h1>
     <br>
     {% include "template_messages.html" %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4>{% trans 'Creating an internship master user account' %}</h4>
+    <div class="card card-default">
+        <div class="card-heading">
+            <h5>{% trans 'Creating an internship master user account' %}</h5>
         </div>
         <form id="form" method="POST" class="post-form">
             {% csrf_token %}
-            <div class="panel panel-body">
+            <div class="card card-body">
                 {% bootstrap_field form.email %}
                 {% bootstrap_field form.password1 %}
                 {% bootstrap_field form.password2 %}
                 <input type="hidden" name="username" id="id_username" value="{{ form.username.value }}"/>
             </div>
-            <div class="panel panel-body">
+            <div class="card card-body">
                 <button type="submit" class="btn btn-primary" title="{% trans 'Submit' %}" id="bt_submit_registration">
-                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span> {% trans 'Submit' %}
+                    <span class="fa fa-save" aria-hidden="true"></span> {% trans 'Submit' %}
                 </button>
                 <a class="btn btn-default" href="{% url 'internship' %}" id="bt_cancel_registration">
-                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> {% trans 'Cancel' %}
+                    <span class="fa fa-remove" aria-hidden="true"></span> {% trans 'Cancel' %}
                 </a>
             </div>
         </form>

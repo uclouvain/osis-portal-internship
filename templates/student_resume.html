@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 {% load period %}
@@ -27,7 +27,7 @@
     * see http://www.gnu.org/licenses/.
 {% endcomment %}
 
-{% block style %}
+{% block custom_style %}
 <style>
     .period-row{
         display: flex;
@@ -41,9 +41,9 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
-    <li><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
-    <li class="active">{% trans 'Sum up of your choices and your affectations' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Sum up of your choices and your affectations' %}</li>
 {% endblock %}
 
 
@@ -53,51 +53,49 @@
     </div>
 
 
-    <div class="panel panel-default">
-        <div class="panel panel-body">
-
-            <div class="row">
-                <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active">
-                        <a href="#student_info" aria-controls="student_info" role="tab" data-toggle="tab">
-                            {% trans 'Student information' %}
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" role="tablist">
+                <li role="presentation" class="nav-item">
+                    <a class="nav-link active" href="#student_info" aria-controls="student_info" role="tab" data-bs-toggle="tab">
+                        {% trans 'Student information' %}
+                    </a>
+                </li>
+                <li role="presentation" class="nav-item">
+                    <a class="nav-link" href="#choices" aria-controls="choices" role="tab" data-bs-toggle="tab">
+                        {% trans 'Choices received by administration' %}
+                    </a>
+                </li>
+                {% if publication_allowed %}
+                    <li role="presentation" class="nav-item">
+                        <a class="nav-link" href="#affectation" aria-controls="affectation" role="tab" data-bs-toggle="tab">
+                            {% trans 'Internship affectation' %}
                         </a>
                     </li>
-                    <li role="presentation">
-                        <a href="#choices" aria-controls="choices" role="tab" data-toggle="tab">
-                            {% trans 'Choices received by administration' %}
+                    <li role="presentation" class="nav-item">
+                        <a class="nav-link" href="#scores" aria-controls="scores" role="tab" data-bs-toggle="tab">
+                            {% trans 'Internships scores' %}
                         </a>
                     </li>
-                    {% if publication_allowed %}
-                        <li role="presentation">
-                            <a href="#affectation" aria-controls="affectation" role="tab" data-toggle="tab">
-                                {% trans 'Internship affectation' %}
-                            </a>
-                        </li>
-                        <li role="presentation">
-                            <a href="#scores" aria-controls="scores" role="tab" data-toggle="tab">
-                                {% trans 'Internships scores' %}
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
+                {% endif %}
+            </ul>
+        </div>
 
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active" id="student_info">
+            <div class="card-body tab-content">
+                <div role="tabcard" class="tab-pane active" id="student_info">
                     <br>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <strong>{% trans 'last name' %}</strong>
                             <br>
                             {{ student.person.last_name }}
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <strong>{% trans 'First name' %}</strong>
                             <br>
                             {{ student.person.first_name }}
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <strong>{% trans 'Registration id' %}</strong>
                             <br>
                             {{ student.registration_id }}
@@ -105,12 +103,12 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <strong>{% trans 'gender' %}</strong>
                             <br>
                             {{ student.person.gender|default_if_none:'-'}}
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <strong>{% trans 'email' %}</strong>
                             <br>
                             {{ student.person.email }}
@@ -118,17 +116,17 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <strong>{% trans 'Mobile phone' %}</strong>
                             <br>
                             {{ student.person.phone_mobile }}
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <strong>{% trans 'language' %}</strong>
                             <br>
                             {{ student.person.language }}
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4">
                             <strong>{% trans 'Address' %}</strong>
                             <br>
                             {{ student_information.location }}
@@ -137,7 +135,7 @@
                     <br>
                     {% if student_information.contest %}
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-4">
                                 <strong>{% trans 'Contest' %}</strong>
                                 <br>
                                 {% trans student_information.contest %}
@@ -146,11 +144,11 @@
                     {% endif %}
                 </div>
 
-                <div role="tabpanel" class="tab-pane" id="choices">
+                <div role="tabcard" class="tab-pane" id="choices">
                     <br>
                     <div class="row">
                         {% for internship in internships %}
-                            <div class="col-md-12">
+                            <div class="col-12">
                                 <strong>{{ internship.name }}</strong>
                                 <ul>
                                     {% for choice in student_choices %}
@@ -166,7 +164,7 @@
                 </div>
 
                 {% if publication_allowed %}
-                    <div role="tabpanel" class="tab-pane" id="affectation">
+                    <div role="tabcard" class="tab-pane" id="affectation">
                         {% for affectation in student_affectations %}
                             <div
                                 class="row period-row
@@ -207,16 +205,16 @@
                 {% endif %}
 
                 {% if publication_allowed %}
-                    <div role="tabpanel" class="tab-pane" id="scores">
+                    <div role="tabcard" class="tab-pane" id="scores">
                     <div class="table-responsive">
                       <table class="table">
                             <thead>
                                 <tr>
                                     <th colspan="2"></th>
-                                    <th colspan="14" style="text-align:center;">
+                                    <th colspan="15" style="text-align:center;">
                                         APD
-                                        <a data-toggle="modal" data-target="#apd-doc" style="cursor: pointer;">
-                                            <span class="glyphicon glyphicon-question-sign"></span>
+                                        <a data-bs-toggle="modal" data-bs-target="#apd-doc" style="cursor: pointer;">
+                                            <span class="fa fa-question-circle text-primary"></span>
                                         </a>
                                     </th>
                                     <th colspan="2"></th>
@@ -229,7 +227,7 @@
                                     {% endfor %}
                                     <th style="text-align: center;">
                                         {% trans 'Known to student' %}
-                                        <span data-toggle="tooltip" title="{% trans 'Internship student was present during evaluation process' %}" class="glyphicon glyphicon-question-sign"></span>
+                                        <span data-bs-toggle="tooltip" title="{% trans 'Internship student was present during evaluation process' %}" class="fa fa-question-circle"></span>
                                     </th>
                                     <th>Com.</th>
                                 </tr>
@@ -241,7 +239,7 @@
                                         {{ affectation.period.name }}
                                     </td>
                                     <td>
-                                        {{ affectation.specialty.name }}
+                                        {{ affectation.speciality.name }}
                                     </td>
                                     {% for apd in apds %}
                                         {% if affectation.score %}
@@ -257,7 +255,7 @@
                                     </td>
                                     <td>
                                         {% if affectation.score.comments %}
-                                            <a data-toggle="modal" data-target="#comments-modal" type="button" class="btn btn-xs btn-default btn-edit-score"
+                                            <a data-bs-toggle="modal" data-bs-target="#comments-modal" type="button" class="btn btn-xs btn-default btn-edit-score"
                                                id="comment-btn-{{ student.pk }}-{{ affectation.period.pk }}"
                                                data-student="{{ student }}" data-period="{{ affectation.period.name }}"
                                                data-comments="{{ affectation.score.comments|to_json }}" data-organization="{{ affectation.organization.name }}"
@@ -275,7 +273,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
     {% include 'internship_apd_documentation.html' %}
 
@@ -305,9 +303,9 @@
 
         for (const [key, comment] of Object.entries(comments)) {
           commentsModalBodyContent.append("" +
-              "<div class='panel panel-default'>" +
-              `<div class='panel-heading'>${key}</div>` +
-              `<div class='panel-body'>${comment}</div>`
+              "<div class='card card-default'>" +
+              `<div class='card-heading'>${key}</div>` +
+              `<div class='card-body'>${comment}</div>`
           );
         }
         commentsModalBody.html(commentsModalBodyContent);

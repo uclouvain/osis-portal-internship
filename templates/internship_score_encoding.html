@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 
 {% load i18n messages %}
 {% comment "License" %}
@@ -26,9 +26,9 @@
 {% endcomment %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{% trans 'Internships' %}</a></li>
-    <li><a href="{% url 'internship_master_home' %}">{% trans 'Internship master' %}</a></li>
-    <li class="active">{% trans 'Score encoding' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{% trans 'Internships' %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'internship_master_home' %}">{% trans 'Internship master' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Score encoding' %}</li>
 {% endblock %}
 
 
@@ -50,12 +50,12 @@
     {% endif %}
 
     <div class="alert alert-info">
-        <span class="glyphicon glyphicon-info-sign" style="margin-right: 5px;"></span>
+        <span class="fa fa-info-circle" style="margin-right: 5px;"></span>
         {% trans 'You will find hereunder internships that have been assigned to you and for which score encoding is open' %}
     </div>
 
     <div class="alert alert-warning">
-        <span class="glyphicon glyphicon-warning-sign" style="margin-right: 5px;"></span>
+        <span class="fa fa-warning" style="margin-right: 5px;"></span>
         {% blocktranslate with url=professional_malfunction_url %}
         If a professional dysfunction is observed in a student's behavior, please <a href="{{ url }}">complete this form</a> and submit it to the Internship Administration.
         {% endblocktranslate %}
@@ -64,21 +64,21 @@
 
     <div class="row">
         {% for allocation in allocations %}
-            <div class="col-md-4">
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">{{ allocation.organization.cohort.name }}</h3>
+            <div class="col-4">
+                <div class="card">
+                  <div class="card-heading">
+                    <h5 class="card-title">{{ allocation.organization.cohort.name }}</h5>
                   </div>
-                  <div class="panel-body">
-                      <h3>{{ allocation.specialty.name }}</h3>
+                  <div class="card-body">
+                      <h4>{{ allocation.specialty.name }}</h4>
                       <p>{{ allocation.amount_encoded }}/{{ allocation.total_amount }} {% trans 'encoded grade(s)' %}</p>
                       <hr/>
                       <a href="{% url 'internship_score_encoding_sheet' specialty_uuid=allocation.specialty.uuid organization_uuid=allocation.organization.uuid %}" class="btn btn-primary">
                         {% trans 'Encoding' %}
                       </a>
                   </div>
-                    <div class="panel-footer">
-                        <h5>{{ allocation.organization.name }}</h5>
+                    <div class="card-footer">
+                        <p>{{ allocation.organization.name }}</p>
                     </div>
                 </div>
             </div>
