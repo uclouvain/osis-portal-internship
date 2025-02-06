@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 {% load period %}
@@ -38,10 +38,10 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
-    <li><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
-    <li><a href="{% url 'place_evaluation_list' cohort_id=cohort.name %}">{% trans 'Internship place evaluation' %}</a></li>
-    <li class="active">{{ affectation.period.name }} - {{ affectation.speciality.name }} - {{ affectation.organization.name }}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'place_evaluation_list' cohort_id=cohort.name %}">{% trans 'Internship place evaluation' %}</a></li>
+    <li class="breadcrumb-item active">{{ affectation.period.name }} - {{ affectation.speciality.name }} - {{ affectation.organization.name }}</li>
 {% endblock %}
 
 {% block content %}
@@ -51,7 +51,7 @@
 
     {% include "template_messages.html" %}
 
-    <div class="alert alert-info" role="alert" style="margin-bottom: 0;">
+    <div class="alert alert-info" role="alert">
         <table>
             <tr>
                 <td style="padding-right:12px;"><i class="fa fa-circle-info" style="font-size:180%" aria-hidden="true"></i></td>
@@ -68,14 +68,14 @@
         </table>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel panel-heading">
+    <div class="card">
+        <div class="card-header py-4">
             <h3>{{ affectation.organization.name }}</h3>
-            <h4>{{ affectation.speciality.name }}</h4>
-            <p>{% trans "Internship master" %}: {{ affectation.master|default_if_none:'-'}}</p>
+            <h5>{{ affectation.speciality.name }}</h5>
+            <span>{% trans "Internship master" %}: {{ affectation.master|default_if_none:'-'}}</span>
         </div>
 
-        <div class="panel panel-body">
+        <div class="card-body">
 
                 {% if affectation.period|is_past %}
 
@@ -83,9 +83,9 @@
                     <form method="post" action="#">
                         {% csrf_token %}
                         {% for item in items %}
-                            <div class="col-md-12"  style="margin-bottom: 15px;">
-                                <div class="form-group {% if item.required %} required {% endif %}">
-                                    <label class="statement-label" for="{{ item.uuid }}">{{ item.statement }}</label>
+                            <div class="col-12"  style="margin-bottom: 15px;">
+                                <div class="py-3 px-3 form-group {% if item.required %} required {% endif %}">
+                                    <label class="form-label statement-label pb-2" for="{{ item.uuid }}">{{ item.statement }}</label>
                                     {% if item.type == "OPEN" %}
                                         <textarea {% if item.required %} required {% endif %} class="form-control" name="{{ item.uuid }}" id="{{ item.uuid }}">{% get_input evaluation item %}</textarea>
                                     {% elif item.type == "NUMBER" %}
@@ -93,9 +93,9 @@
                                     {% elif item.type == "CHOICE" %}
                                             {% for option in item.options %}
                                                 {% is_selected_option evaluation item option as selected %}
-                                            <div class="radio">
+                                            <div class="radio py-1">
                                                 <label for="{{ item.uuid }}-{{ option }}">
-                                                    <input {% if item.required %} required {% endif %} type="radio" id="{{ item.uuid }}-{{ option }}" name="{{ item.uuid }}" value="{{ option }}"
+                                                    <input class="me-1"{% if item.required %} required {% endif %} type="radio" id="{{ item.uuid }}-{{ option }}" name="{{ item.uuid }}" value="{{ option }}"
                                                     {% if selected %} checked {% endif %}/>
                                                     {{ option }}
                                                 </label>
@@ -105,12 +105,12 @@
                                 </div>
                             </div>
                         {% empty %}
-                            <div class="col-md-12">
+                            <div class="col-12">
                                 {% trans "No evaluation items defined." %}
                             </div>
                         {% endfor %}
                         {% if items %}
-                            <div class="col-md-12">
+                            <div class="col-12 px-3 mb-3">
                                 <input type="submit" class="btn btn-primary"/>
                                 <a class="btn btn-default" href="{% url 'place_evaluation_list' cohort_id=cohort.name %}">
                                     {% trans 'Cancel' %}
@@ -123,7 +123,7 @@
                 {% else %}
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-12">
                         {% trans "The place evaluation form is not available before end of internship period and will be available from " %}
                         {{ affectation.period.date_end|str_to_iso_date }}
                         </div>

@@ -48,7 +48,7 @@
                 </td>
                 <td>
                     <select id="{{ form.preference.id_for_label }}" name="{{ form.preference.html_name }}"
-                            class="form-control">
+                            class="form-select form-control">
                         {% for key, val in form.fields.preference.choices %}
                             {% choice_for_offer internship_choices offer internship as choice %}
                             <option value="{{ key }}" {% if key == choice %} selected {% endif %}>{{ val }}</option>
@@ -60,9 +60,9 @@
         </tbody>
     </table>
 
-    <div class="panel-footer">
+    <div class="card-footer">
         <button type="submit" class="btn btn-primary">
-            <span class="glyphicon glyphicon-ok"></span> {% trans 'Submit choices' %}
+            <span class="fa fa-check-circle"></span> {% trans 'Submit choices' %}
         </button>
     </div>
 {% endif %}

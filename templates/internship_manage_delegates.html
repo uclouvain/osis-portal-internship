@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -27,9 +27,9 @@
 {% endcomment %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{% trans 'Internships' %}</a></li>
-    <li><a href="{% url 'internship_master_home' %}">{% trans 'Internship master' %}</a></li>
-    <li class="active">{% trans 'Delegates' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{% trans 'Internships' %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'internship_master_home' %}">{% trans 'Internship master' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Delegates' %}</li>
 {% endblock %}
 
 
@@ -57,24 +57,25 @@
         </table>
     </div>
 
-    <div class="panel panel-default" style="border-radius: 0;">
-        <div class="panel panel-heading" style="border-radius: 0;">
+    <div class="card card-default" style="border-radius: 0;">
+        <div class="card card-heading" style="border-radius: 0;">
             <ul class="nav nav-pills">
                 {% for allocation in master_allocations %}
-                    <li {% if allocation.internship == request.GET.internship or not request.GET.internship and forloop.first %}
-                        class="active"
-                    {% endif %}>
-                        <a data-toggle="pill" href="#{{ allocation.internship }}">
+                    <li>
+                        <a data-bs-toggle="pill" href="#{{ allocation.internship }}" class="nav-link
+                        {% if allocation.internship == request.GET.internship or not request.GET.internship and forloop.first %}
+                            active
+                        {% endif %}">
                             {{ allocation.specialty.name }} - {{ allocation.organization.name }}
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         </div>
-        <div class="panel panel-body">
+        <div class="card-body">
             <div class="tab-content">
                 {% for allocation in master_allocations %}
-                  <div id="{{ allocation.internship }}" class="tab-pane fade in
+                  <div id="{{ allocation.internship }}" class="tab-pane show
                     {% if allocation.internship == request.GET.internship or not request.GET.internship and forloop.first %}
                      active
                     {% endif %}">
@@ -98,18 +99,18 @@
                                 <td>
                                     <a class="btn btn-danger internship_btn_delete" id="delete_{{ delegated_allocation.uuid }}"
                                        data-href="{% url 'internship_delete_delegate' allocation_uuid=delegated_allocation.uuid %}"
-                                       data-toggle="modal" data-target="#delete_modal"
+                                       data-bs-toggle="modal" data-bs-target="#delete_modal"
                                        data-name="{{delegated_allocation.master.person.last_name }}">
-                                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        <span class="fa fa-trash" aria-hidden="true"></span>
                                     </a>
                                 </td>
                             </tr>
                         {% endfor %}
                         </tbody>
                    </table>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#delegate-form-modal-{{ allocation.uuid }}"
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#delegate-form-modal-{{ allocation.uuid }}"
                             data-specialty="{{ allocation.specialty.uuid }}" data-organization="{{ allocation.organization.uuid }}">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        <span class="fa fa-plus" aria-hidden="true"></span>
                         {% trans 'New delegate' %}
                     </button>
                   </div>

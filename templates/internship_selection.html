@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load selection_tags %}
 {% load i18n %}
@@ -32,7 +32,7 @@
         .alert {
             display: block !important;
         }
-        #loading-stage-au-choix {
+        .loading-stage-au-choix {
             width: 34px;
             height: 34px;
             border: 3px solid #f3f3f3;
@@ -46,16 +46,16 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
-    <li><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
-    <li class="active">{% trans 'selection' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'selection' %}</li>
 {% endblock %}
 
 {% block content %}
     <div class="page-header">
-        <div class="btn-group pull-right">
+        <div class="btn-group float-end">
             <button type="button" class="btn btn-primary" onclick="$('#assign_preference').submit();">
-                <span class="glyphicon glyphicon-ok"></span> {% trans 'Submit choices' %}
+                <span class="fa fa-check-circle"></span> {% trans 'Submit choices' %}
             </button>
         </div>
         <h2>{% trans 'Internships' %}</h2>
@@ -63,125 +63,126 @@
 
     {% include "template_messages.html" %}
 
-    <ul class="nav nav-tabs">
-        {% for internship in internships %}
-            {% if internship.speciality %}
-                <li role="presentation" tabindex="-1" {% if current_internship.uuid == internship.uuid %} class="active" {% endif %}>
-                    <a data-toggle="tab" data-id="{{ internship.uuid }}" href="#{{ internship.uuid }}-tab">
-                        {{ internship.name }}
-                    </a>
-                </li>
-            {% endif %}
-        {% endfor %}
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{% trans 'Selective internships' %}
-                <span class="caret"></span></a>
-            <ul class="dropdown-menu">
+    <div class="card">
+        <div class="card-header">
+            <ul class="card-header-tabs nav nav-tabs">
                 {% for internship in internships %}
-                    {% if not internship.speciality %}
-                        <li role="presentation"
-                            class="selective_internship{% if current_internship.uuid == internship.uuid %} active {% endif %}">
-                            <a data-toggle="tab" data-id="{{ internship.uuid }}" href="#{{ internship.uuid }}-tab" onclick="get_selective_internship_preferences('{{ internship.uuid }}')">
+                    {% if internship.speciality %}
+                        <li role="presentation" tabindex="-1" class="nav-item">
+                            <a class="nav-link {% if current_internship.uuid == internship.uuid %} active {% endif %}" data-bs-toggle="tab" data-id="{{ internship.uuid }}" href="#{{ internship.uuid }}-tab">
                                 {{ internship.name }}
                             </a>
                         </li>
                     {% endif %}
                 {% endfor %}
-            </ul>
-        </li>
-    </ul>
-    <br>
-
-    <form id="assign_preference" method="post">
-        <input hidden id="current_internship_input" name="current_internship" value="{{ current_internship.uuid }}"/>
-        <div class="tab-content">
-            {% csrf_token %}
-            {% for internship in internships %}
-                <div id="{{ internship.uuid }}-tab" class="tab-pane fade
-                            {% if current_internship.uuid == internship.uuid %}
-                                in active
+                <li class="dropdown nav-item">
+                    <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" href="#">{% trans 'Selective internships' %}
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        {% for internship in internships %}
+                            {% if not internship.speciality %}
+                                <li role="presentation"
+                                    class="selective_internship">
+                                    <a data-bs-toggle="tab" class="dropdown-item{% if current_internship.uuid == internship.uuid %} active {% endif %}" data-id="{{ internship.uuid }}" href="#{{ internship.uuid }}-tab" onclick="get_selective_internship_preferences('{{ internship.uuid }}')">
+                                        {{ internship.name }}
+                                    </a>
+                                </li>
                             {% endif %}
-                    ">
-                    <div class="panel panel-default">
-                        {% if not internship.speciality %}
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    <div class="fieldWrapper col-md-6 form-group">
-                                        <h3>{{ internship.name }}</h3>
-                                        <label for="speciality_selection">{% trans 'Choose a speciality' %}:</label>
-                                        <div class="row">
-                                            <div class="col-xs-8">
-                                                <select id="speciality_selection_{{ internship.uuid }}"
-                                                        onchange="get_selective_internship_preferences('{{ internship.uuid }}', this.value);"
-                                                        name="{{ internship.name }}-speciality_id"
-                                                        class="form-control select-non-mandatory-internship">
-                                                    <option value="">-----</option>
-                                                    {% for speciality in all_specialities %}
-                                                        <option value="{{ speciality.uuid }}"
-                                                                {% if internship.chosen_specialty.uuid == speciality.uuid %}
-                                                                selected {% endif %}>
-                                                            {{ speciality.name }}
-                                                        </option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <div id="loading-stage-au-choix"></div>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <form id="assign_preference" method="post" class="card-body">
+            <input hidden id="current_internship_input" name="current_internship" value="{{ current_internship.uuid }}"/>
+            <div class="tab-content">
+                {% csrf_token %}
+                {% for internship in internships %}
+                    <div id="{{ internship.uuid }}-tab" class="tab-pane fade
+                                {% if current_internship.uuid == internship.uuid %}
+                                    show active
+                                {% endif %}
+                        ">
+                            {% if not internship.speciality %}
+                                <div class="card card-default">
+                                    <div class="card-body">
+                                        <div class="fieldWrapper col-6 form-group">
+                                            <h3>{{ internship.name }}</h3>
+                                            <label for="speciality_selection">{% trans 'Choose a speciality' %}:</label>
+                                            <div class="row">
+                                                <div class="col-8">
+                                                    <select id="speciality_selection_{{ internship.uuid }}"
+                                                            onchange="get_selective_internship_preferences('{{ internship.uuid }}', this.value);"
+                                                            name="{{ internship.name }}-speciality_id"
+                                                            class="form-select form-control select-non-mandatory-internship">
+                                                        <option value="">-----</option>
+                                                        {% for speciality in all_specialities %}
+                                                            <option value="{{ speciality.uuid }}"
+                                                                    {% if internship.chosen_specialty.uuid == speciality.uuid %}
+                                                                    selected {% endif %}>
+                                                                {{ speciality.name }}
+                                                            </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="loading-stage-au-choix"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div id="selective_internship_preferences_form_{{ internship.uuid }}"></div>
-                        {% endif %}
-                        {% if internship.offers_forms and internship.speciality %}
-                            {{ internship.formset.management_form }}
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>{% trans 'Hospital' %}</th>
-                                    <th>{% trans 'Maximum number of students' %}</th>
-                                    <th>{% trans 'Number of first choice' %}</th>
-                                    <th>{% trans 'Preference' %}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {% for offer, form, number_first_choices in internship.offers_forms %}
+                                <div id="selective_internship_preferences_form_{{ internship.uuid }}"></div>
+                            {% endif %}
+                            {% if internship.offers_forms and internship.speciality %}
+                                {{ internship.formset.management_form }}
+                                <table class="table table-striped">
+                                    <thead>
                                     <tr>
-                                        <td>{{ offer.organization.name }}</td>
-                                        <td>{{ offer.maximum_enrollments }}</td>
-                                        <td>{{ number_first_choices }}</td>
-                                        <td hidden>
-                                            <input type="text" id="{{ form.offer.id_for_label }}"
-                                                   name="{{ form.offer.html_name }}"
-                                                   class="form-control" value="{{ offer.uuid }}">
-                                        </td>
-                                        <td>
-                                            <select id="{{ form.preference.id_for_label }}"
-                                                    name="{{ form.preference.html_name }}" class="form-control">
-                                                {% for key, val in form.fields.preference.choices %}
-                                                    {% choice_for_offer internship.internship_choices offer internship as choice %}
-                                                    <option value="{{ key }}" {% if key == choice %}
-                                                            selected {% endif %}>{{ val }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </td>
+                                        <th>{% trans 'Hospital' %}</th>
+                                        <th>{% trans 'Maximum number of students' %}</th>
+                                        <th>{% trans 'Number of first choice' %}</th>
+                                        <th>{% trans 'Preference' %}</th>
                                     </tr>
-                                {% endfor %}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {% for offer, form, number_first_choices in internship.offers_forms %}
+                                        <tr>
+                                            <td>{{ offer.organization.name }}</td>
+                                            <td>{{ offer.maximum_enrollments }}</td>
+                                            <td>{{ number_first_choices }}</td>
+                                            <td hidden>
+                                                <input type="text" id="{{ form.offer.id_for_label }}"
+                                                       name="{{ form.offer.html_name }}"
+                                                       class="form-control" value="{{ offer.uuid }}">
+                                            </td>
+                                            <td>
+                                                <select id="{{ form.preference.id_for_label }}"
+                                                        name="{{ form.preference.html_name }}" class="form-select form-control">
+                                                    {% for key, val in form.fields.preference.choices %}
+                                                        {% choice_for_offer internship.internship_choices offer internship as choice %}
+                                                        <option value="{{ key }}" {% if key == choice %}
+                                                                selected {% endif %}>{{ val }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
 
-                            <div class="panel-footer">
-                                <button type="submit" class="btn btn-primary">
-                                    <span class="glyphicon glyphicon-ok"></span> {% trans 'Submit choices' %}
-                                </button>
-                            </div>
-                        {% endif %}
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="fa fa-check-circle"></span> {% trans 'Submit choices' %}
+                                    </button>
+                                </div>
+                            {% endif %}
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    </form>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
 
 {% endblock %}
 
@@ -191,7 +192,7 @@
         $("li.selective_internship.active").closest("li.dropdown").addClass("active");
 
         //keep current tab opened after submit
-        $(".nav-tabs a[data-toggle=tab]").on('click', function (e) {
+        $(".nav-tabs a[data-bs-toggle=tab]").on('click', function (e) {
             let internship_id = e.target.dataset.id;
             $("#current_internship_input").val(internship_id);
         });
@@ -219,17 +220,19 @@
 
         $(document).ajaxStart(function(){
             $('.select-non-mandatory-internship').prop('disabled', (i, v) => !v);
-            $('#loading-stage-au-choix').show();
+            $('.loading-stage-au-choix').show();
         }).ajaxStop(function(){
             $('.select-non-mandatory-internship').prop('disabled', (i, v) => !v);
-            $('#loading-stage-au-choix').hide();
+            $('.loading-stage-au-choix').hide();
         });
 
         // use anchor to keep tab open after selection
         let anchor = $(location).attr('hash');
         if(anchor){
             $("#current_internship_input").val(anchor.substr(1));
-            $(`.nav-tabs a[href="${anchor}-tab"]`).tab('show');
+            let el = document.querySelector(`.nav-tabs a[href="${anchor}-tab"]`);
+            let tab = new bootstrap.Tab(el);
+            tab.show();
         }
 
         // keep selective internship tab
