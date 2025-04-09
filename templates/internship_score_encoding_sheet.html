@@ -114,6 +114,9 @@
                         </td>
                         <td style="text-align:center;">
                             {{ affectation.period.name }}
+                            {% if affectation.period.is_preconcours %}
+                                <span data-bs-toggle="tooltip" title="Pré-concours" class="badge bg-info">P</span>
+                            {% endif %}
                         </td>
                         {% for apd in apds %}
                             {% if affectation.score %}

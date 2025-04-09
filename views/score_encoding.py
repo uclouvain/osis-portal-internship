@@ -133,7 +133,12 @@ def view_score_encoding_form(request, specialty_uuid, organization_uuid, affecta
             }) + '?period={}'.format(period.name))
         messages.add_message(request, messages.ERROR, _('An error occurred during score update'))
 
-    return layout.render(request, "internship_score_encoding_form.html", locals())
+    if period.is_preconcours:
+        template_name = "internship_score_encoding_form_preconcours.html"
+    else:
+        template_name = "internship_score_encoding_form.html"
+
+    return layout.render(request, template_name, locals())
 
 
 @login_required
@@ -182,11 +187,23 @@ def _show_required_response_msg(request):
 def _build_score_to_update(post_data, score):
     comments = _build_comments(post_data)
     objectives = _build_objectives(post_data)
+
+    behavior_score = post_data.get('behavior_score')
+    competency_score = post_data.get('competency_score')
+
+    preconcours_evaluation_detail = {
+        key: value for key, value in post_data.items()
+        if key not in ['behavior_score', 'competency_score', 'csrfmiddlewaretoken', 'btn-save', 'btn-save-validate', 'presence']
+    }
+
     score = ScoreGet(
         uuid=score.uuid,
         comments=comments,
         objectives=objectives,
         student_presence=post_data.get('presence') == 'yes',
+        behavior_score=behavior_score,
+        competency_score=competency_score,
+        preconcours_evaluation_detail=preconcours_evaluation_detail,
         **{key: post_data.get(key) for key in ScoreGet.attribute_map.keys() if key in post_data.keys()}
     )
     return score
