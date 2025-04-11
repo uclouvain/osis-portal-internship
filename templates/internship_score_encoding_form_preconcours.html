@@ -111,7 +111,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="competence_1" name="competence_1" min="0" max="20">
+                                    <input type="number" class="form-control form-control-sm" id="competence_1" name="competence_1" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_1 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -125,7 +125,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="competence_2" name="competence_2" min="0" max="20">
+                                    <input type="number" class="form-control form-control-sm" id="competence_2" name="competence_2" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_2 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="competence_3" name="competence_3" min="0" max="20">
+                                    <input type="number" class="form-control form-control-sm" id="competence_3" name="competence_3" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_3 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="competence_4" name="competence_4" min="0" max="20">
+                                    <input type="number" class="form-control form-control-sm" id="competence_4" name="competence_4" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_4 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
-                                <input type="number" class="form-control form-control-sm" id="competency_score" name="competency_score" min="0" max="20">
+                                <input required type="number" class="form-control form-control-sm" id="competency_score" name="competency_score" min="0" max="20" value="{{ score.competency_score }}">
                                 <span class="input-group-text">/20</span>
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="behavior_1" name="behavior_1" min="0" max="20">
+                                    <input type="number" class="form-control form-control-sm" id="behavior_1" name="behavior_1" min="0" max="20" value="{{ score.preconcours_evaluation_detail.behavior_1 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -197,7 +197,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="behavior_2" name="behavior_2" min="0" max="20">
+                                    <input type="number" class="form-control form-control-sm" id="behavior_2" name="behavior_2" min="0" max="20" value="{{ score.preconcours_evaluation_detail.behavior_2 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -210,7 +210,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="behavior_3" name="behavior_3" min="0" max="20">
+                                    <input type="number" class="form-control form-control-sm" id="behavior_3" name="behavior_3" min="0" max="20" value="{{ score.preconcours_evaluation_detail.behavior_3 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -223,7 +223,7 @@
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="behavior_4" name="behavior_4" min="0" max="20">
+                                    <input type="number" class="form-control form-control-sm" id="behavior_4" name="behavior_4" min="0" max="20" value="{{ score.preconcours_evaluation_detail.behavior_4 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -237,7 +237,7 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
-                                <input type="number" class="form-control form-control-sm" id="behavior_score" name="behavior_score" min="0" max="20">
+                                <input required type="number" class="form-control form-control-sm" id="behavior_score" name="behavior_score" min="0" max="20" value="{{ score.behavior_score }}">
                                 <span class="input-group-text">/20</span>
                             </div>
                         </div>
@@ -248,7 +248,7 @@
                 <hr/>
                 <div class="mb-3">
                     <label for="comments" class="form-label mb-0">Soulignez les points forts et les points faibles. Justifiez votre évaluation.</label>
-                    <textarea class="form-control" id="comments" name="comments" rows="5"></textarea>
+                    <textarea class="form-control" id="comments" name="preconcours_comments" rows="5">{{ score.preconcours_evaluation_detail.preconcours_comments }}</textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
