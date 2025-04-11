@@ -88,6 +88,12 @@ def view_score_encoding_sheet(request, specialty_uuid, organization_uuid):
         **pagination_params
     )
 
+    for affectation in students_affectations:
+        if affectation.period.is_preconcours:
+            affectation.has_apd = False
+        else:
+            affectation.has_apd = True
+
     not_validated_count = len(
         [
             _ for affectation in students_affectations
@@ -121,7 +127,7 @@ def view_score_encoding_form(request, specialty_uuid, organization_uuid, affecta
 
     if request.POST:
         score = _build_score_to_update(request.POST, score)
-        if not _validate_score(request, internship) or not _required_response(request):
+        if not _validate_score(request, internship, period) or not _required_response(request, period):
             return layout.render(request, "internship_score_encoding_form.html", locals())
         if InternshipAPIService.update_score(request.user.person, affectation_uuid, score):
             _show_success_update_msg(request, period, student)
@@ -133,7 +139,12 @@ def view_score_encoding_form(request, specialty_uuid, organization_uuid, affecta
             }) + '?period={}'.format(period.name))
         messages.add_message(request, messages.ERROR, _('An error occurred during score update'))
 
-    return layout.render(request, "internship_score_encoding_form.html", locals())
+    if period.is_preconcours:
+        template_name = "internship_score_encoding_form_preconcours.html"
+    else:
+        template_name = "internship_score_encoding_form.html"
+
+    return layout.render(request, template_name, {**locals(), 'score': score})
 
 
 @login_required
@@ -182,12 +193,26 @@ def _show_required_response_msg(request):
 def _build_score_to_update(post_data, score):
     comments = _build_comments(post_data)
     objectives = _build_objectives(post_data)
+
+    behavior_score = int(post_data.get('behavior_score'))
+    competency_score = int(post_data.get('competency_score'))
+
+    preconcours_evaluation_detail = {
+        key: value for key, value in post_data.items()
+        if key not in ['behavior_score', 'competency_score', 'csrfmiddlewaretoken']
+    }
+
     score = ScoreGet(
         uuid=score.uuid,
         comments=comments,
         objectives=objectives,
         student_presence=post_data.get('presence') == 'yes',
-        **{key: post_data.get(key) for key in ScoreGet.attribute_map.keys() if key in post_data.keys()}
+        behavior_score=behavior_score,
+        competency_score=competency_score,
+        preconcours_evaluation_detail=preconcours_evaluation_detail,
+        **{key: post_data.get(key) for key in ScoreGet.attribute_map.keys() if key in post_data.keys() and key not in [
+            'behavior_score', 'competency_score'
+        ]}
     )
     return score
 
@@ -201,29 +226,35 @@ def _build_objectives(post_data):
     return {'apds': [only_number(apd) for apd in apds_objectives if apd]}
 
 
-def _validate_score(request, internship):
-    mandatory_apds = internship.apds
+def _validate_score(request, internship, period):
+    if period.is_preconcours:
+        # Validate preconcours form
+        if not request.POST.get('competency_score') and request.POST.get('behavior_score'):
+            messages.add_message(request, messages.ERROR, _("Please provide at least competency score and behavior score."))
+            return False
+        return True
+    else:
+        mandatory_apds = internship.apds
+        max_apds = MAX_APDS if internship.cohort.parent_cohort is None else MAX_APDS_NEW
+        apds_data = [apd for apd in APDS if request.POST.get(apd)]
 
-    max_apds = MAX_APDS if internship.cohort.parent_cohort is None else MAX_APDS_NEW
-
-    apds_data = [apd for apd in APDS if request.POST.get(apd)]
-
-    # number of evaluated apds should be between min and max
-    if not MIN_APDS <= len(apds_data) <= max_apds:
-        _show_invalid_update_msg(request, MIN_APDS, max_apds)
-        return False
-
-    # mandatory apds should be evaluated
-    for apd in mandatory_apds:
-        if f"apd_{apd}" not in apds_data:
-            _show_required_apd_msg(request, mandatory_apds)
+        # number of evaluated apds should be between min and max
+        if not MIN_APDS <= len(apds_data) <= max_apds:
+            _show_invalid_update_msg(request, MIN_APDS, max_apds)
             return False
 
+        # mandatory apds should be evaluated
+        for apd in mandatory_apds:
+            if f"apd_{apd}" not in apds_data:
+                _show_required_apd_msg(request, mandatory_apds)
+                return False
+
+        return True
     return True
 
 
-def _required_response(request):
-    if not request.POST.get('presence'):
+def _required_response(request, period):
+    if not request.POST.get('presence') and not period.is_preconcours:
         _show_required_response_msg(request)
         return False
     return True

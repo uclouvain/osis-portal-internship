@@ -16,6 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#, python-format
 msgid ""
 "\n"
 "        If a professional dysfunction is observed in a student's behavior, "
@@ -122,6 +123,9 @@ msgstr "Complétée"
 msgid "Conduct clinical examination"
 msgstr "Réaliser l’examen clinique"
 
+msgid "Consult choices provided and affectations results"
+msgstr "Consultez les choix proposés et le résultat des affectations"
+
 msgid "Contest"
 msgstr "Concours"
 
@@ -167,6 +171,10 @@ msgstr "Activités Professionnelles délégables (APD)"
 msgid "Establish a diagnosis"
 msgstr "Établir un diagnostic de travail"
 
+msgid "Evaluate the experience you had at your internship location"
+msgstr ""
+"Evaluez l'expérience que vous avez eue dans votre lieu de stage"
+
 msgid "Evaluation"
 msgstr "Évaluation"
 
@@ -184,6 +192,9 @@ msgstr "Formuler des questions cliniques"
 
 msgid "Fourth choice"
 msgstr "Quatrième choix"
+
+msgid "Fulfill your internship specialties and locations preferences"
+msgstr "Sélectionnez vos préférences de lieux et spécialités pour vos stages"
 
 msgid "Generalist"
 msgstr "Généraliste"
@@ -273,6 +284,9 @@ msgstr "Évaluation en ma présence"
 
 msgid "Last name"
 msgstr "Nom"
+
+msgid "Locate the hospitals where you will be doing your internships"
+msgstr "Localisez les hôpitaux dans lesquels vous effectuerez vos stages"
 
 msgid "Login"
 msgstr "Se connecter"

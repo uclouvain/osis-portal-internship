@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 
@@ -27,9 +27,9 @@
 {% endcomment %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
-    <li><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
-    <li class="active">{% trans 'selection' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'selection' %}</li>
 {% endblock %}
 
 {% block content %}
@@ -37,8 +37,8 @@
         <h2>{% trans 'Internships' %}</h2>
     </div>
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="card">
+        <div class="card-body">
             {% trans "You can no longer submit your choices." %}
         </div>
     </div>

@@ -1,4 +1,4 @@
-{% extends "dashboard_layout.html" %}
+{% extends "bootstrap5/layout.html" %}
 {% load static %}
 {% load i18n %}
 {% load period %}
@@ -36,9 +36,9 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <li><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
-    <li><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
-    <li class="active">{% trans 'Hospitals' %}</li>
+    <li class="breadcrumb-item"><a href="{% url 'internship' %}">{{ cohort.name }}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'internship_student_home' cohort_id=cohort.name %}">{% trans 'Internships' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Hospitals' %}</li>
 {% endblock %}
 
 {% block content %}
@@ -48,19 +48,19 @@
 
     {% include "template_messages.html" %}
 
-    <div class="panel panel-default">
-        <div class="panel panel-heading">
+    <div class="card">
+        <div class="card-header">
             {{ cohort.name }} - {{ request.user.person }}
         </div>
-        <div class="panel panel-body">
+        <div class="card-body">
 
             <table class="table">
                 <thead>
                     <tr>
-                        <th class="visible-xs">{% trans 'Internship' %}</th>
-                        <th class="hidden-xs">{% trans 'Period' %}</th>
-                        <th class="hidden-xs">{% trans 'Specialty' %}</th>
-                        <th class="hidden-xs">{% trans 'Hospital' %}</th>
+                        <th class="d-table-cell d-sm-none">{% trans 'Internship' %}</th>
+                        <th class="d-none d-sm-table-cell">{% trans 'Period' %}</th>
+                        <th class="d-none d-sm-table-cell">{% trans 'Specialty' %}</th>
+                        <th class="d-none d-sm-table-cell">{% trans 'Hospital' %}</th>
                         <th class="text-center">{% trans 'Evaluation' %}</th>
                         <th class="text-center">{% trans 'Completed' %}</th>
                     </tr>
@@ -69,21 +69,22 @@
                 {% if publication_allowed %}
                     {% for affectation in affectations %}
                         <tr class="evaluation-row">
-                            <td class="visible-xs">
+                            <td class="d-table-cell d-sm-none">
                                 <div style="font-weight: bolder; margin-bottom: 10px;">{{ affectation.period.name }}</div>
                                 <div style="margin-bottom: 10px;">{{ affectation.speciality.name }}</div>
                                 <div style="margin-bottom: 10px;">{{ affectation.organization.name }}</div>
                             </td>
-                            <td class="hidden-xs">{{ affectation.period.name }}</td>
-                            <td class="hidden-xs">{{ affectation.speciality.name }}</td>
-                            <td class="hidden-xs">{{ affectation.organization.name }}</td>
+                            <td class="d-none d-sm-table-cell">{{ affectation.period.name }}</td>
+                            <td class="d-none d-sm-table-cell">{{ affectation.speciality.name }}</td>
+                            <td class="d-none d-sm-table-cell">{{ affectation.organization.name }}</td>
                             <td class="text-center">
-                                <a class="btn btn-primary"
-                                        {% if affectation.period|is_past and affectation.period.place_evaluation_active %}
-                                            href="{% url 'place_evaluation' cohort_id=cohort.name period_name=affectation.period.name %}"
-                                        {% else %}
-                                            href="#" disabled
-                                        {% endif %}
+                                <a  {% if affectation.period|is_past and affectation.period.place_evaluation_active %}
+                                        class="btn btn-primary"
+                                        href="{% url 'place_evaluation' cohort_id=cohort.name period_name=affectation.period.name %}"
+                                    {% else %}
+                                        class="btn btn-primary disabled"
+                                        href="#" disabled
+                                    {% endif %}
                                 >
                                     <span class="fa-solid fa-file-pen"></span>
                                 </a>
