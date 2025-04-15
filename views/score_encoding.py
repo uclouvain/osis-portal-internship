@@ -199,7 +199,7 @@ def _build_score_to_update(post_data, score):
 
     preconcours_evaluation_detail = {
         key: value for key, value in post_data.items()
-        if key not in ['behavior_score', 'competency_score', 'csrfmiddlewaretoken']
+        if key not in ['behavior_score', 'competency_score', 'csrfmiddlewaretoken', 'btn-save-validate']
     }
 
     score = ScoreGet(
