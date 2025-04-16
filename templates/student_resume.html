@@ -221,6 +221,7 @@
                                 </tr>
                                 <tr>
                                     <th>{% trans 'Period' %}</th>
+                                    <th></th>
                                     <th>{% trans 'Internship' %}</th>
                                     {% for apd in apds %}
                                         <th style="text-align:center;">{{ apd | only_number }}</th>
@@ -239,29 +240,53 @@
                                         {{ affectation.period.name }}
                                     </td>
                                     <td>
-                                        {{ affectation.speciality.name }}
-                                    </td>
-                                    {% for apd in apds %}
-                                        {% if affectation.score %}
-                                            <td style="text-align:center;">{{ affectation.score|get_attr:apd|default_if_none:'-'}}</td>
-                                        {% else %}
-                                            <td style="text-align:center;">-</td>
+                                        {% if affectation.period.is_preconcours %}
+                                        <span data-bs-toggle="tooltip" title="Pré-concours" class="badge bg-info">P</span>
                                         {% endif %}
-                                    {% endfor %}
-                                    <td style="text-transform: capitalize; text-align: center;">
-                                    {% if affectation.score %}
-                                        {{ affectation.score.student_presence|yesno:_("yes,no,") }}
-                                    {% endif %}
                                     </td>
                                     <td>
-                                        {% if affectation.score.comments %}
+                                        {{ affectation.speciality.name }}
+                                    </td>
+                                    {% if affectation.period.is_preconcours %}
+                                        <td style="text-align:center;" colspan="7"><b>{% trans 'Competence score' %}:</b> {{ affectation.score.competency_score|default_if_none:'-' }}</td>
+                                        <td style="text-align:center;" colspan="8"><b>{% trans 'Behavior score' %}:</b> {{ affectation.score.behavior_score|default_if_none:'-' }}</td>
+                                    {% else %}
+                                        {% for apd in apds %}
+                                            {% if affectation.score %}
+                                                <td style="text-align:center;">{{ affectation.score|get_attr:apd|default_if_none:'-'}}</td>
+                                            {% else %}
+                                                <td style="text-align:center;">-</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                    <td style="text-transform: capitalize; text-align: center;">
+                                        {% if affectation.period.is_preconcours %}
+                                            N/A
+                                        {% else %}
+                                            {% if affectation.score %}
+                                                {{ affectation.score.student_presence|yesno:_("yes,no,") }}
+                                            {% endif %}
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if affectation.period.is_preconcours and affectation.score.preconcours_evaluation_detail %}
                                             <a data-bs-toggle="modal" data-bs-target="#comments-modal" type="button" class="btn btn-xs btn-default btn-edit-score"
-                                               id="comment-btn-{{ student.pk }}-{{ affectation.period.pk }}"
-                                               data-student="{{ student }}" data-period="{{ affectation.period.name }}"
-                                               data-comments="{{ affectation.score.comments|to_json }}" data-organization="{{ affectation.organization.name }}"
-                                               data-specialty="{{ affectation.speciality.name }}">
+                                            id="comment-btn-{{ student.pk }}-{{ affectation.period.pk }}"
+                                            data-student="{{ student }}" data-period="{{ affectation.period.name }}"
+                                            data-comments="{{ affectation.score.preconcours_evaluation_detail|to_json }}" data-organization="{{ affectation.organization.name }}"
+                                            data-specialty="{{ affectation.speciality.name }}" data-behavior-score="{{ affectation.score.behavior_score }}" data-competency-score="{{ affectation.score.competency_score }}" data-preconcours="true">
                                                 <icon class="fa fa-comment"></icon>
                                             </a>
+                                        {% else %}
+                                            {% if affectation.score.comments %}
+                                                <a data-bs-toggle="modal" data-bs-target="#comments-modal" type="button" class="btn btn-xs btn-default btn-edit-score"
+                                                id="comment-btn-{{ student.pk }}-{{ affectation.period.pk }}"
+                                                data-student="{{ student }}" data-period="{{ affectation.period.name }}"
+                                                data-comments="{{ affectation.score.comments|to_json }}" data-organization="{{ affectation.organization.name }}"
+                                                data-specialty="{{ affectation.speciality.name }}">
+                                                    <icon class="fa fa-comment"></icon>
+                                                </a>
+                                            {% endif %}
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -290,23 +315,60 @@
         const student = $(e.relatedTarget).data('student');
         const period = $(e.relatedTarget).data('period');
         const comments = $(e.relatedTarget).data('comments');
-
         const specialty = $(e.relatedTarget).data('specialty');
         const organization = $(e.relatedTarget).data('organization');
 
-        $(e.currentTarget).find('#modal-student-period').text(`${student} - ${period}`);
+        const preconcours = $(e.relatedTarget).data('preconcours');
 
+        $(e.currentTarget).find('#modal-student-period').text(`${student} - ${period}`);
         $(e.currentTarget).find('#modal-internship').text(`${specialty} - ${organization}`);
 
         let commentsModalBody = $(e.currentTarget).find('#modal-comments');
         let commentsModalBodyContent = $('<span/>');
 
-        for (const [key, comment] of Object.entries(comments)) {
-          commentsModalBodyContent.append("" +
-              "<div class='card card-default'>" +
-              `<div class='card-heading'>${key}</div>` +
-              `<div class='card-body'>${comment}</div>`
-          );
+        if (preconcours){
+            const behaviorScore = $(e.relatedTarget).data('behaviorScore');
+            const competencyScore = $(e.relatedTarget).data('competencyScore');
+            for (const [key, value] of Object.entries(comments)) {
+                if(!isNaN(value)){
+                  commentsModalBodyContent.append("" +
+                  `<div class='card card-default py-1 px-2 d-flex flex-row justify-content-between'>
+                    <div>${key}</div>
+                    <div>${value} / 20</div>
+                   </div>`
+                  )
+                  if(key === 'ENGAGEMENT PERSONNEL DANS LE SERVICE') {
+                    commentsModalBodyContent.append("" +
+                      `<div class='card card-default border border-dark bg-light py-2 px-2 d-flex flex-row justify-content-between fw-bold'>
+                        <div>Cote de comportement</div>
+                        <div>${behaviorScore} / 20</div>
+                       </div>`
+                      )
+                  }
+                  if(key === 'HABILETE TECHNIQUE CLINIQUE') {
+                    commentsModalBodyContent.append("" +
+                      `<div class='card card-default border border-dark bg-light py-2 px-2 d-flex flex-row justify-content-between fw-bold'>
+                        <div>Cote de compétence</div>
+                        <div>${competencyScore} / 20</div>
+                       </div>`
+                      )
+                  }
+                } else {
+                  commentsModalBodyContent.append("" +
+                      "<div class='card card-default'>" +
+                      `<div class='card-heading'>${key}</div>` +
+                      `<div class='card-body'>${value}</div>`
+                  );
+              }
+            }
+        } else {
+            for (const [key, comment] of Object.entries(comments)) {
+              commentsModalBodyContent.append("" +
+                  "<div class='card card-default'>" +
+                  `<div class='card-heading'>${key}</div>` +
+                  `<div class='card-body'>${comment || ''}</div>`
+              );
+            }
         }
         commentsModalBody.html(commentsModalBodyContent);
     });
