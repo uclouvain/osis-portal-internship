@@ -193,7 +193,6 @@
                 $.ajax({url: validateUrl, method: 'POST', data: {
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 }, success: (data) => {
-                    console.log(data);
                     if(!data.error){
                         $('#validation_modal').modal('hide');
                         updateActions(affectation);

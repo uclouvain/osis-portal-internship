@@ -251,7 +251,8 @@
                     <textarea class="form-control" id="comments" name="preconcours_comments" rows="5">{{ score.preconcours_evaluation_detail.preconcours_comments }}</textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
+                <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#validation_modal">{% trans 'Save' %}</a>
+                    {% include "fragment/validation_request_modal.html" %}
             </form>
         </div>
     </div>
