@@ -83,7 +83,9 @@ class MockAPI(InternshipApi):
     @classmethod
     def periods_get(*args, **kwargs):
         return {'count': 1, 'results': [
-            PeriodGet(uuid=str(uuid.uuid4()), name='P1', date_end='2023-01-31', date_start='2023-01-01')
+            PeriodGet(
+                uuid=str(uuid.uuid4()), name='P1', date_end='2023-01-31', date_start='2023-01-01', is_preconcours=False
+            )
         ]}
 
     @classmethod
@@ -101,7 +103,9 @@ class MockAPI(InternshipApi):
         affectation = StudentAffectationGet(
             uuid=str(uuid.uuid4()),
             student=Student(uuid=str(uuid.uuid4()), last_name='', first_name=''),
-            period=PeriodGet(uuid=str(uuid.uuid4()), name='P1', date_end='2023-01-31', date_start='2023-01-01'),
+            period=PeriodGet(
+                uuid=str(uuid.uuid4()), name='P1', date_end='2023-01-31', date_start='2023-01-01', is_preconcours=False
+            ),
             score=ScoreListGet(uuid=str(uuid.uuid4()), validated=False),
             internship_uuid=str(uuid.uuid4()),
         )
@@ -111,7 +115,9 @@ class MockAPI(InternshipApi):
     def students_affectations_affectation_uuid_get(*args, **kwargs):
         return StudentAffectationGet(
             student=Student(uuid=str(uuid.uuid4()), last_name='', first_name=''),
-            period=PeriodGet(uuid=str(uuid.uuid4()), name='P1', date_end='2023-01-31', date_start='2023-01-01'),
+            period=PeriodGet(
+                uuid=str(uuid.uuid4()), name='P1', date_end='2023-01-31', date_start='2023-01-01', is_preconcours=False
+            ),
             score=ScoreListGet(uuid=str(uuid.uuid4()), validated=True, comments={}),
             internship_uuid=str(uuid.uuid4()),
         )
@@ -172,7 +178,9 @@ class MockAPI(InternshipApi):
             uuid=str(uuid.uuid4()),
             organization=OrganizationGet(uuid=str(uuid.uuid4()), reference='', name=''),
             speciality=SpecialtyGet(uuid=str(uuid.uuid4()), acronym='', parent=None, name=''),
-            period=PeriodGet(uuid=str(uuid.uuid4()), name='P1', date_end='2023-01-31', date_start='2023-01-01'),
+            period=PeriodGet(
+                uuid=str(uuid.uuid4()), name='P1', date_end='2023-01-31', date_start='2023-01-01', is_preconcours=False
+            ),
             master='',
             internship_evaluated=False,
         )]}

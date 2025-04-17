@@ -194,8 +194,8 @@ def _build_score_to_update(post_data, score):
     comments = _build_comments(post_data)
     objectives = _build_objectives(post_data)
 
-    behavior_score = int(post_data.get('behavior_score'))
-    competency_score = int(post_data.get('competency_score'))
+    behavior_score = int(post_data.get('behavior_score')) if 'behavior_score' in post_data else None
+    competency_score = int(post_data.get('competency_score')) if 'competency_score' in post_data else None
 
     preconcours_evaluation_detail = {
         key: value for key, value in post_data.items()
@@ -230,7 +230,9 @@ def _validate_score(request, internship, period):
     if period.is_preconcours:
         # Validate preconcours form
         if not request.POST.get('competency_score') and request.POST.get('behavior_score'):
-            messages.add_message(request, messages.ERROR, _("Please provide at least competency score and behavior score."))
+            messages.add_message(
+                request, messages.ERROR, _("Please provide at least competency score and behavior score.")
+            )
             return False
         return True
     else:
