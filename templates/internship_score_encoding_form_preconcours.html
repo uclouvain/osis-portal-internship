@@ -39,7 +39,7 @@
 
 {% block content %}
     <div class="page-header">
-        <h2>Formulaire d'évaluation (pré-concours)</h2>
+        <h2>{% trans 'Pre-Competition Evaluation Form' %}</h2>
     </div>
 
     {% include "template_messages.html" %}
@@ -62,40 +62,40 @@
                 <table class="table table-sm">
                     <thead>
                         <tr class="border-bottom-1 border-bottom">
-                            <th colspan="4"><h6><b>{% trans 'COTATION - Cotez chaque item sur 20 points. Veuillez vous référer et respecter l\'échelle ci-dessous.' %}</b></h6></th>
+                            <th colspan="4"><h6><b>{% trans 'GRADING - Rate each item out of 20 points. Please refer to and respect the scale below.' %}</b></h6></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                         <tr>
                             <td class="text-nowrap">18-19</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "EXCEPTIONNEL: est dans le 1% des meilleurs stagiaires" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "EXCEPTIONAL: is in the top 1% of the best interns" %}</td>
                             <td class="text-nowrap">12</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "BON avec plusieurs points faibles" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "GOOD with several weaknesses" %}</td>
                         </tr>
                         <tr>
                             <td class="text-nowrap">16-17</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "EXCELLENT: est dans les 10% des meilleurs stagiaires" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "EXCELLENT: is in the top 10% of the best interns" %}</td>
                             <td class="text-nowrap">11</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "EN DESSOUS de la moyenne des stagiaires" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "BELOW the average of the interns" %}</td>
                         </tr>
                         <tr>
                             <td class="text-nowrap">15</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "TRES BON: est dans les 30% des meilleurs stagiaires" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "VERY GOOD: is in the top 30% of the best interns" %}</td>
                             <td class="text-nowrap">10</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "A fait preuve de manquements" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "Showed shortcomings" %}</td>
                         </tr>
                         <tr>
                             <td class="text-nowrap">14</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "BON: la majorité des étudiants en stage se retrouvent normalement dans cette catégorie" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "GOOD: the majority of students in training are normally in this category" %}</td>
                             <td class="text-nowrap">9</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "Manque d'intégration, absence non motivée, pas de sens des responsabilités" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "Lack of integration, unmotivated absence, no sense of responsibility" %}</td>
                         </tr>
                         <tr>
                             <td class="text-nowrap">13</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "BON avec l'un ou l'autre point faible" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "GOOD with some weaknesses" %}</td>
                             <td class="text-nowrap">5</td>
-                            <td style="max-width: 200px; padding-right: 10px;">{% trans "Une absence non motivée de plus d'une semaine justifie une cote globale de 5" %}</td>
+                            <td style="max-width: 200px; padding-right: 10px;">{% trans "An unexcused absence of more than one week justifies an overall rating of 5" %}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -106,12 +106,12 @@
                     <div class="col-12">
                         <div class="mb-3 row align-items-center">
                             <div class="col-sm-10">
-                            <label for="competence_1" class="form-label mb-0">CAPACITE DE RECUEIL DES DONNEES DE BASE</label>
-                                <p class="form-text text-muted">anamnèse – examens cliniques – demandes relationnelles d'examens de labo et de RX – notes d'évolution</p>
+                            <label for="competency_1" class="form-label mb-0">{% trans 'BASIC DATA COLLECTION CAPACITY' %}</label>
+                                <p class="form-text text-muted">{% trans 'anamnesis - clinical examinations - relational requests for lab and RX examinations - progress notes' %}</p>
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="competence_1" name="competence_1" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_1 }}">
+                                    <input type="number" class="form-control form-control-sm" id="competency_1" name="competency_1" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_1 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -120,12 +120,12 @@
                     <div class="col-12">
                         <div class="mb-3 row align-items-center">
                             <div class="col-sm-10">
-                                <label for="competence_2" class="form-label mb-0">CONNAISSANCES MEDICALES</label>
-                                <p class="form-text text-muted">mécanismes physiopathologiques – diagnostics différentiels – connaissances thérapeutiques</p>
+                                <label for="competency_2" class="form-label mb-0">{% trans 'MEDICAL KNOWLEDGE' %}</label>
+                                <p class="form-text text-muted">{% trans 'pathophysiological mechanisms - differential diagnoses - therapeutic knowledge' %}</p>
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="competence_2" name="competence_2" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_2 }}">
+                                    <input type="number" class="form-control form-control-sm" id="competency_2" name="competency_2" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_2 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -134,12 +134,12 @@
                     <div class="col-12">
                         <div class="mb-3 row align-items-center">
                             <div class="col-sm-10">
-                                <label for="competence_3" class="form-label mb-0">JUGEMENT CLINIQUE</label>
-                                <p class="form-text text-muted">identification des problèmes du patient – identification des diagnostics les plus vraisemblables</p>
+                                <label for="competency_3" class="form-label mb-0">{% trans 'CLINICAL JUDGEMENT' %}</label>
+                                <p class="form-text text-muted">{% trans 'identification of patient problems - identification of the most likely diagnoses' %}</p>
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="competence_3" name="competence_3" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_3 }}">
+                                    <input type="number" class="form-control form-control-sm" id="competency_3" name="competency_3" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_3 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -148,12 +148,12 @@
                     <div class="col-12">
                         <div class="mb-3 row align-items-center">
                             <div class="col-sm-10">
-                                <label for="competence_4" class="form-label mb-0">HABILETE TECHNIQUE CLINIQUE</label>
-                                <p class="form-text text-muted">manipulation d'instruments propres à votre spécialité</p>
+                                <label for="competency_4" class="form-label mb-0">{% trans 'CLINICAL TECHNICAL SKILLS' %}</label>
+                                <p class="form-text text-muted">{% trans 'manipulation of instruments specific to your specialty' %}</p>
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
-                                    <input type="number" class="form-control form-control-sm" id="competence_4" name="competence_4" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_4 }}">
+                                    <input type="number" class="form-control form-control-sm" id="competency_4" name="competency_4" min="0" max="20" value="{{ score.preconcours_evaluation_detail.competence_4 }}">
                                     <span class="input-group-text">/20</span>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                 <div class="col-12 bg-light  border-top border-bottom">
                     <div class="row align-items-center">
                         <div class="col-sm-10">
-                            <label for="competency_score" class="form-label mb-0">COTE DE COMPETENCE</label>
+                            <label for="competency_score" class="form-label mb-0">{% trans 'COMPETENCE SCORE' %}</label>
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
@@ -179,8 +179,8 @@
                     <div class="col-12">
                         <div class="mb-3 row align-items-center">
                             <div class="col-sm-10">
-                                <label for="behavior_1" class="form-label mb-0">RELATIONS AVEC LES PATIENTS</label>
-                                <p class="form-text text-muted">contact humain – capacité d'inspirer confiance – réactions appropriées aux craintes des patients et de leur famille</p>
+                                <label for="behavior_1" class="form-label mb-0">{% trans 'RELATIONS WITH PATIENTS' %}</label>
+                                <p class="form-text text-muted">{% trans 'human contact - ability to inspire confidence - appropriate reactions to the fears of patients and their families' %}</p>
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
@@ -192,8 +192,8 @@
                     <div class="col-12">
                         <div class="mb-3 row align-items-center">
                             <div class="col-sm-10">
-                                <label for="behavior_2" class="form-label mb-0">RELATIONS AVEC LES MEDECINS, LE PERSONNEL</label>
-                                <p class="form-text text-muted">capacité de travailler en équipe – acceptation de l'autorité et des critiques – communications avec le personnel soignant</p>
+                                <label for="behavior_2" class="form-label mb-0">{% trans 'RELATIONS WITH DOCTORS, STAFF' %}</label>
+                                <p class="form-text text-muted">{% trans 'ability to work in a team - acceptance of authority and criticism - communications with the nursing staff' %}</p>
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
@@ -205,8 +205,8 @@
                     <div class="col-12">
                         <div class="mb-3 row align-items-center">
                             <div class="col-sm-10">
-                                <label for="behavior_3" class="form-label mb-0">CONSCIENCE PROFESSIONNELLE</label>
-                                <p class="form-text text-muted">dévouement – ponctualité – prises de responsabilités – curiosité scientifique</p>
+                                <label for="behavior_3" class="form-label mb-0">{% trans 'PROFESSIONAL CONSCIOUSNESS' %}</label>
+                                <p class="form-text text-muted">{% trans 'dedication - punctuality - taking responsibility - scientific curiosity' %}</p>
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
@@ -218,8 +218,8 @@
                     <div class="col-12">
                         <div class="mb-3 row align-items-center">
                             <div class="col-sm-10">
-                                <label for="behavior_4" class="form-label mb-0">ENGAGEMENT PERSONNEL DANS LE SERVICE</label>
-                                <p class="form-text text-muted">participation active aux tours de salle – consultations de la littérature – préparation de staffs – initiatives constructives</p>
+                                <label for="behavior_4" class="form-label mb-0">{% trans 'PERSONAL COMMITMENT IN THE SERVICE' %}</label>
+                                <p class="form-text text-muted">{% trans 'active participation in rounds - literature consultations - preparation of staffs - constructive initiatives' %}</p>
                             </div>
                             <div class="col-sm-2">
                                 <div class="input-group">
@@ -233,7 +233,7 @@
                 <div class="col-12 bg-light  border-top border-bottom">
                     <div class="row align-items-center">
                         <div class="col-sm-10">
-                            <label for="behavior_score" class="form-label mb-0">COTE DE COMPORTEMENT</label>
+                            <label for="behavior_score" class="form-label mb-0">{% trans 'BEHAVIOR SCORE' %}</label>
                         </div>
                         <div class="col-sm-2">
                             <div class="input-group">
@@ -247,7 +247,7 @@
                 <h3 class="mt-5">{% trans 'Comments' %}</h3>
                 <hr/>
                 <div class="mb-3">
-                    <label for="comments" class="form-label mb-0">Soulignez les points forts et les points faibles. Justifiez votre évaluation.</label>
+                    <label for="comments" class="form-label mb-0">{% trans 'Highlight the strengths and weaknesses. Justify your assessment.' %}</label>
                     <textarea class="form-control" id="comments" name="preconcours_comments" rows="5">{{ score.preconcours_evaluation_detail.preconcours_comments }}</textarea>
                 </div>
 

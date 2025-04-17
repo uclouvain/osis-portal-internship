@@ -230,7 +230,9 @@ def _validate_score(request, internship, period):
     if period.is_preconcours:
         # Validate preconcours form
         if not request.POST.get('competency_score') and request.POST.get('behavior_score'):
-            messages.add_message(request, messages.ERROR, _("Please provide at least competency score and behavior score."))
+            messages.add_message(
+                request, messages.ERROR, _("Please provide at least competency score and behavior score.")
+            )
             return False
         return True
     else:
