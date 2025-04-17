@@ -99,6 +99,7 @@
                     <tr>
                         <th>{% trans 'Student' %}</th>
                         <th style="text-align:center;">{% trans 'Period' %}</th>
+                        <th></th>
                         {% for apd in apds %}
                             <th style="text-align:center;">{{ apd | only_number }}</th>
                         {% endfor %}
@@ -115,13 +116,24 @@
                         <td style="text-align:center;">
                             {{ affectation.period.name }}
                         </td>
-                        {% for apd in apds %}
-                            {% if affectation.score %}
-                                <td style="text-align:center;">{{ affectation.score|get_attr:apd|default_if_none:'-'}}</td>
-                            {% else %}
-                                <td style="text-align:center;">-</td>
+                        <td>
+                            {% if affectation.period.is_preconcours %}
+                            <span data-bs-toggle="tooltip" title="Pré-concours" class="badge bg-info">P</span>
                             {% endif %}
-                        {% endfor %}
+                        </td>
+                        {% if affectation.has_apd %}
+                            {% for apd in apds %}
+                                {% if affectation.score %}
+                                    <td style="text-align:center;">{{ affectation.score|get_attr:apd|default_if_none:'-'}}</td>
+                                {% else %}
+                                    <td style="text-align:center;">-</td>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                        {% if not affectation.has_apd %}
+                            <td style="text-align:center;" colspan="7"><b>{% trans 'Competency score' %}:</b> {{ affectation.score.competency_score|default_if_none:'-' }}</td>
+                            <td style="text-align:center;" colspan="8"><b>{% trans 'Behavior score' %}:</b> {{ affectation.score.behavior_score|default_if_none:'-' }}</td>
+                        {% endif %}
                         {% if not affectation.score.validated %}
                         <td style="text-align:center;">
                             <a id='edit-btn-{{ affectation.uuid }}' class="btn btn-primary btn-sm" href="{% url 'internship_score_encoding_form' specialty_uuid=specialty_uuid organization_uuid=organization_uuid affectation_uuid=affectation.uuid %}">
@@ -181,7 +193,6 @@
                 $.ajax({url: validateUrl, method: 'POST', data: {
                     'csrfmiddlewaretoken': '{{ csrf_token }}'
                 }, success: (data) => {
-                    console.log(data);
                     if(!data.error){
                         $('#validation_modal').modal('hide');
                         updateActions(affectation);
