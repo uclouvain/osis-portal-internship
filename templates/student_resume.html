@@ -248,8 +248,8 @@
                                         {{ affectation.speciality.name }}
                                     </td>
                                     {% if affectation.period.is_preconcours %}
-                                        <td style="text-align:center;" colspan="7"><b>{% if affectation.organization.reference == '600' %}{% trans 'Cote de compétences socles' %}{% else %}{% trans 'Competency score' %}{% endif %}:</b> {{ affectation.score.competency_score|default_if_none:'-' }}</td>
-                                        <td style="text-align:center;" colspan="8"><b>{% if affectation.organization.reference == '600' %}{% trans 'Cote de compétences cliniques' %}{% else %}{% trans 'Behavior score' %}{% endif %}:</b> {{ affectation.score.behavior_score|default_if_none:'-' }}</td>
+                                        <td style="text-align:center;" colspan="7"><b>{% if affectation.organization.reference == '600' %}{% trans 'Base skills score' %}{% else %}{% trans 'Competency score' %}{% endif %}:</b> {{ affectation.score.competency_score|default_if_none:'-' }}</td>
+                                        <td style="text-align:center;" colspan="8"><b>{% if affectation.organization.reference == '600' %}{% trans 'Clinical skills score' %}{% else %}{% trans 'Behavior score' %}{% endif %}:</b> {{ affectation.score.behavior_score|default_if_none:'-' }}</td>
                                     {% else %}
                                         {% for apd in apds %}
                                             {% if affectation.score %}

@@ -79,6 +79,9 @@ msgstr ""
 msgid "BELOW the average of the interns"
 msgstr ""
 
+msgid "Base skills score"
+msgstr ""
+
 msgid "Behavior Evaluation"
 msgstr ""
 
@@ -123,6 +126,9 @@ msgid "City"
 msgstr ""
 
 msgid "Civility"
+msgstr ""
+
+msgid "Clinical skills score"
 msgstr ""
 
 msgid "Comments"
