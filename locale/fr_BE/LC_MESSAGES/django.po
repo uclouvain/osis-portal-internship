@@ -585,8 +585,6 @@ msgstr "Compte utilisateur activé"
 msgid "Username and password not matching"
 msgstr "Le nom d'utilisateur et le mot de passe ne correspondent pas"
 
-#, fuzzy, python-format
-#| msgid "VERY GOOD: is in the top 30%% of the best interns"
 msgid "VERY GOOD: is in the top 30%% of the best interns"
 msgstr "TRES BON: est dans les 30% des meilleurs stagiaires"
 
