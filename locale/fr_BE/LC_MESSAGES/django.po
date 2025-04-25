@@ -64,6 +64,11 @@ msgstr "Une erreur est survenue durant la mise à jour de l'évaluation"
 msgid "An evaluation for the following EPAs is required: {}"
 msgstr "Une évaluation pour les APDs suivantes est requise: {}"
 
+msgid ""
+"An unexcused absence of more than one week justifies an overall rating of 5"
+msgstr ""
+"Une absence non motivée de plus d'une semaine justifie une cote globale de 5"
+
 msgid "Appreciate medical emergency"
 msgstr "Reconnaitre l’urgence médicale"
 
@@ -74,8 +79,35 @@ msgstr "Attribuer des délégués sur vos affectations"
 msgid "Autonomy level (%% of students according to periods)"
 msgstr "Niveau d'autonomie (%% des étudiant.es selon les périodes)"
 
+msgid "BASIC DATA COLLECTION CAPACITY"
+msgstr "CAPACITE DE RECUEIL DES DONNEES DE BASE"
+
+msgid "BEHAVIOR SCORE"
+msgstr "COTE DE COMPORTEMENT"
+
+msgid "BELOW the average of the interns"
+msgstr "EN DESSOUS de la moyenne des stagiaires"
+
+msgid "Base skills score"
+msgstr "Cote de compétences de socle"
+
+msgid "Behavior Evaluation"
+msgstr "Évaluation du comportement"
+
+msgid "Behavior score"
+msgstr "Cote de comportement"
+
 msgid "Birth date"
 msgstr "Date de naissance"
+
+msgid "CLINICAL JUDGEMENT"
+msgstr "JUGEMENT CLINIQUE"
+
+msgid "CLINICAL TECHNICAL SKILLS"
+msgstr "HABILETE TECHNIQUE"
+
+msgid "COMPETENCE SCORE"
+msgstr "COTE DE COMPETENCE"
 
 msgid "Cancel"
 msgstr "Annuler"
@@ -108,11 +140,20 @@ msgstr "Ville"
 msgid "Civility"
 msgstr "Civilité"
 
+msgid "Clinical skills score"
+msgstr "Cote de compétences cliniques"
+
 msgid "Comments"
 msgstr "Commentaires"
 
 msgid "Communicate (broad sense)"
 msgstr "Communiquer au sens large"
+
+msgid "Competence Evaluation"
+msgstr "Évaluation des compétences"
+
+msgid "Competency score"
+msgstr "Cote de compétence"
 
 msgid "Complement patient record"
 msgstr "Compléter le dossier patient"
@@ -153,6 +194,12 @@ msgstr "Docteur"
 msgid "EPAs description"
 msgstr "Description des APDs"
 
+msgid "EXCELLENT: is in the top 10%% of the best interns"
+msgstr "EXCELLENT: est dans les 10% des meilleurs stagiaires"
+
+msgid "EXCEPTIONAL: is in the top 1%% of the best interns"
+msgstr "EXCEPTIONNEL: est dans le 1% des meilleurs stagiaires"
+
 msgid "Email"
 msgstr "Email"
 
@@ -172,8 +219,7 @@ msgid "Establish a diagnosis"
 msgstr "Établir un diagnostic de travail"
 
 msgid "Evaluate the experience you had at your internship location"
-msgstr ""
-"Evaluez l'expérience que vous avez eue dans votre lieu de stage"
+msgstr "Evaluez l'expérience que vous avez eue dans votre lieu de stage"
 
 msgid "Evaluation"
 msgstr "Évaluation"
@@ -196,6 +242,25 @@ msgstr "Quatrième choix"
 msgid "Fulfill your internship specialties and locations preferences"
 msgstr "Sélectionnez vos préférences de lieux et spécialités pour vos stages"
 
+msgid "GOOD with several weaknesses"
+msgstr "BON avec plusieurs points faibles"
+
+msgid "GOOD with some weaknesses"
+msgstr "BON avec l'un ou l'autre point faible"
+
+msgid ""
+"GOOD: the majority of students in training are normally in this category"
+msgstr ""
+"BON: la majorité des étudiants en stage se retrouvent normalement dans cette "
+"catégorie"
+
+msgid ""
+"GRADING - Rate each item out of 20 points. Please refer to and respect the "
+"scale below."
+msgstr ""
+"COTATION - Cotez chaque item sur 20 points. Veuillez vous référer et "
+"respecter l'échelle ci-dessous."
+
 msgid "Generalist"
 msgstr "Généraliste"
 
@@ -208,6 +273,10 @@ msgstr "Évaluation"
 msgid "Grades modifications will no longer be allowed after validation."
 msgstr ""
 "Les modifications d'une évaluation ne seront plus permises après validation."
+
+msgid "Highlight the strengths and weaknesses. Justify your assessment."
+msgstr ""
+"Soulignez les points forts et les points faibles. Justifiez votre évaluation."
 
 msgid "Hospital"
 msgstr "Hôpital"
@@ -282,6 +351,10 @@ msgstr ""
 msgid "Known to student"
 msgstr "Évaluation en ma présence"
 
+msgid "Lack of integration, unmotivated absence, no sense of responsibility"
+msgstr ""
+"Manque d'intégration, absence non motivée, pas de sens des responsabilités"
+
 msgid "Last name"
 msgstr "Nom"
 
@@ -293,6 +366,9 @@ msgstr "Se connecter"
 
 msgid "Logout"
 msgstr "Se déconnecter"
+
+msgid "MEDICAL KNOWLEDGE"
+msgstr "CONNAISSANCES MEDICALES"
 
 msgid "Make/receive transmission report"
 msgstr "Faire/recevoir le rapport de transmission"
@@ -330,6 +406,12 @@ msgstr "Obtenir le consentement éclairé"
 msgid "Oral presentation of a clinical situation"
 msgstr "Présentation orale d’une situation clinique"
 
+msgid "PERSONAL COMMITMENT IN THE SERVICE"
+msgstr "ENGAGEMENT PERSONNEL DANS LE SERVICE"
+
+msgid "PROFESSIONAL CONSCIOUSNESS"
+msgstr "CONSCIENCE PROFESSIONNELLE"
+
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -349,11 +431,26 @@ msgstr ""
 "Veuillez contacter l'administration des stages (STAC) pour obtenir un compte "
 "utilisateur"
 
+msgid "Please provide at least competency score and behavior score."
+msgstr "Veuillez fournir au moins un score de compétence et de comportement."
+
+msgid "Pre-Competition Evaluation Form"
+msgstr "Formulaire d'évaluation (pré-concours)"
+
+msgid "Preconcours comments"
+msgstr "Commentaires du pré-concours"
+
 msgid "Preference"
 msgstr "Préférence"
 
 msgid "Professor"
 msgstr "Professeur"
+
+msgid "RELATIONS WITH DOCTORS, STAFF"
+msgstr "RELATIONS AVEC LES MEDECINS, LE PERSONNEL"
+
+msgid "RELATIONS WITH PATIENTS"
+msgstr "RELATIONS AVEC LES PATIENTS"
 
 msgid "Reference"
 msgstr "Référence"
@@ -395,6 +492,9 @@ msgstr "Sélectionner des tests diagnostics"
 
 msgid "Selective internships"
 msgstr "Stages au choix"
+
+msgid "Showed shortcomings"
+msgstr "A fait preuve de manquements"
 
 msgid ""
 "Some grades have not been validated yet on this page, please do not forget "
@@ -485,6 +585,9 @@ msgstr "Compte utilisateur activé"
 msgid "Username and password not matching"
 msgstr "Le nom d'utilisateur et le mot de passe ne correspondent pas"
 
+msgid "VERY GOOD: is in the top 30%% of the best interns"
+msgstr "TRES BON: est dans les 30% des meilleurs stagiaires"
+
 msgid "Validate"
 msgstr "Valider"
 
@@ -545,11 +648,36 @@ msgstr ""
 "Votre compte utilisateur est maintenant actif. Vous pouvez vous connecter "
 "pour accéder à la plateforme."
 
+msgid ""
+"ability to work in a team - acceptance of authority and criticism - "
+"communications with the nursing staff"
+msgstr ""
+"capacité de travailler en équipe - acceptation de l'autorité et des "
+"critiques - communications avec le personnel soignant"
+
 msgid "achieves with help"
 msgstr "réalise avec aide"
 
 msgid "achieves without help"
 msgstr "réalise sans aide"
+
+msgid ""
+"active participation in rounds - literature consultations - preparation of "
+"staffs - constructive initiatives"
+msgstr ""
+"participation active aux tours de salle - consultations de la littérature - "
+"préparation de staffs - initiatives constructives"
+
+msgid ""
+"anamnesis - clinical examinations - relational requests for lab and RX "
+"examinations - progress notes"
+msgstr ""
+"anamnèse - examens cliniques - demandes relationnelles d'examens de labo et "
+"de RX - notes d'évolution"
+
+msgid "dedication - punctuality - taking responsibility - scientific curiosity"
+msgstr ""
+"dévouement - ponctualité - prises de responsabilités - curiosité scientifique"
 
 msgid "during"
 msgstr "pendant"
@@ -563,11 +691,28 @@ msgstr "évaluation(s) encodée(s)"
 msgid "gender"
 msgstr "sexe"
 
+msgid ""
+"human contact - ability to inspire confidence - appropriate reactions to the "
+"fears of patients and their families"
+msgstr ""
+"contact humain - capacité d'inspirer confiance - réactions appropriées aux "
+"craintes des patients et de leur famille"
+
+msgid ""
+"identification of patient problems - identification of the most likely "
+"diagnoses"
+msgstr ""
+"identification des problèmes du patient - identification des diagnostics les "
+"plus vraisemblables"
+
 msgid "language"
 msgstr "langue"
 
 msgid "last name"
 msgstr "nom"
+
+msgid "manipulation of instruments specific to your specialty"
+msgstr "manipulation d'instruments propres à votre spécialité"
 
 msgid "name"
 msgstr "nom"
@@ -577,6 +722,13 @@ msgstr "ne réalise pas"
 
 msgid "not observed"
 msgstr "non observé"
+
+msgid ""
+"pathophysiological mechanisms - differential diagnoses - therapeutic "
+"knowledge"
+msgstr ""
+"mécanismes physiopathologiques - diagnostics différentiels - connaissances "
+"thérapeutiques"
 
 msgid "postal code"
 msgstr "code postal"

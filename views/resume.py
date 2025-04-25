@@ -77,7 +77,12 @@ def view_student_resume(request, cohort_id):
             affectation_uuid=str(affectation.uuid)
         ).score
         if score and score.validated:
-            score.comments = _replace_comments_keys_with_translations(score.comments)
+            if affectation.period.is_preconcours:
+                score.preconcours_evaluation_detail = _replace_comments_keys_with_translations(
+                    score.preconcours_evaluation_detail
+                )
+            else:
+                score.comments = _replace_comments_keys_with_translations(score.comments)
             setattr(affectation, 'score', score)
         internship_offers = InternshipAPIService.get_internship_offers(
             person=request.user.person,
@@ -125,6 +130,15 @@ def _replace_comments_keys_with_translations(comments):
         'impr_areas': _('Improvement areas'),
         'suggestions': _('Suggested learning methods'),
         'good_perf_ex': _('Good performance examples'),
-        'intermediary_evaluation': _('Intermediary evaluation')
+        'intermediary_evaluation': _('Intermediary evaluation'),
+        'behavior_1': _('RELATIONS WITH PATIENTS'),
+        'behavior_2': _('RELATIONS WITH DOCTORS, STAFF'),
+        'behavior_3': _('PROFESSIONAL CONSCIOUSNESS'),
+        'behavior_4': _('PERSONAL COMMITMENT IN THE SERVICE'),
+        'competency_1': _('BASIC DATA COLLECTION CAPACITY'),
+        'competency_2': _('MEDICAL KNOWLEDGE'),
+        'competency_3': _('CLINICAL JUDGEMENT'),
+        'competency_4': _('CLINICAL TECHNICAL SKILLS'),
+        'preconcours_comments': _('Preconcours comments'),
     }
     return {comments_keys_mapping[k]: v for k, v in comments.items()}

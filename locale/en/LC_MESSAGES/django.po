@@ -56,6 +56,10 @@ msgstr ""
 msgid "An evaluation for the following EPAs is required: {}"
 msgstr ""
 
+msgid ""
+"An unexcused absence of more than one week justifies an overall rating of 5"
+msgstr ""
+
 msgid "Appreciate medical emergency"
 msgstr ""
 
@@ -66,7 +70,34 @@ msgstr ""
 msgid "Autonomy level (%% of students according to periods)"
 msgstr ""
 
+msgid "BASIC DATA COLLECTION CAPACITY"
+msgstr ""
+
+msgid "BEHAVIOR SCORE"
+msgstr ""
+
+msgid "BELOW the average of the interns"
+msgstr ""
+
+msgid "Base skills score"
+msgstr ""
+
+msgid "Behavior Evaluation"
+msgstr ""
+
+msgid "Behavior score"
+msgstr ""
+
 msgid "Birth date"
+msgstr ""
+
+msgid "CLINICAL JUDGEMENT"
+msgstr ""
+
+msgid "CLINICAL TECHNICAL SKILLS"
+msgstr ""
+
+msgid "COMPETENCE SCORE"
 msgstr ""
 
 msgid "Cancel"
@@ -97,10 +128,19 @@ msgstr ""
 msgid "Civility"
 msgstr ""
 
+msgid "Clinical skills score"
+msgstr ""
+
 msgid "Comments"
 msgstr ""
 
 msgid "Communicate (broad sense)"
+msgstr ""
+
+msgid "Competence Evaluation"
+msgstr ""
+
+msgid "Competency score"
 msgstr ""
 
 msgid "Complement patient record"
@@ -140,6 +180,14 @@ msgid "Doctor"
 msgstr ""
 
 msgid "EPAs description"
+msgstr ""
+
+#, python-format
+msgid "EXCELLENT: is in the top 10%% of the best interns"
+msgstr ""
+
+#, python-format
+msgid "EXCEPTIONAL: is in the top 1%% of the best interns"
 msgstr ""
 
 msgid "Email"
@@ -184,6 +232,21 @@ msgstr ""
 msgid "Fulfill your internship specialties and locations preferences"
 msgstr ""
 
+msgid "GOOD with several weaknesses"
+msgstr ""
+
+msgid "GOOD with some weaknesses"
+msgstr ""
+
+msgid ""
+"GOOD: the majority of students in training are normally in this category"
+msgstr ""
+
+msgid ""
+"GRADING - Rate each item out of 20 points. Please refer to and respect the "
+"scale below."
+msgstr ""
+
 msgid "Generalist"
 msgstr ""
 
@@ -194,6 +257,9 @@ msgid "Grade"
 msgstr ""
 
 msgid "Grades modifications will no longer be allowed after validation."
+msgstr ""
+
+msgid "Highlight the strengths and weaknesses. Justify your assessment."
 msgstr ""
 
 msgid "Hospital"
@@ -264,6 +330,9 @@ msgstr ""
 msgid "Known to student"
 msgstr ""
 
+msgid "Lack of integration, unmotivated absence, no sense of responsibility"
+msgstr ""
+
 msgid "Last name"
 msgstr ""
 
@@ -274,6 +343,9 @@ msgid "Login"
 msgstr ""
 
 msgid "Logout"
+msgstr ""
+
+msgid "MEDICAL KNOWLEDGE"
 msgstr ""
 
 msgid "Make/receive transmission report"
@@ -312,6 +384,12 @@ msgstr ""
 msgid "Oral presentation of a clinical situation"
 msgstr ""
 
+msgid "PERSONAL COMMITMENT IN THE SERVICE"
+msgstr ""
+
+msgid "PROFESSIONAL CONSCIOUSNESS"
+msgstr ""
+
 msgid "Password"
 msgstr ""
 
@@ -329,10 +407,25 @@ msgid ""
 "access"
 msgstr ""
 
+msgid "Please provide at least competency score and behavior score."
+msgstr ""
+
+msgid "Pre-Competition Evaluation Form"
+msgstr ""
+
+msgid "Preconcours comments"
+msgstr ""
+
 msgid "Preference"
 msgstr ""
 
 msgid "Professor"
+msgstr ""
+
+msgid "RELATIONS WITH DOCTORS, STAFF"
+msgstr ""
+
+msgid "RELATIONS WITH PATIENTS"
 msgstr ""
 
 msgid "Reference"
@@ -372,6 +465,9 @@ msgid "Select diagnostic tests"
 msgstr ""
 
 msgid "Selective internships"
+msgstr ""
+
+msgid "Showed shortcomings"
 msgstr ""
 
 msgid ""
@@ -455,6 +551,10 @@ msgstr ""
 msgid "Username and password not matching"
 msgstr ""
 
+#, python-format
+msgid "VERY GOOD: is in the top 30%% of the best interns"
+msgstr ""
+
 msgid "Validate"
 msgstr ""
 
@@ -507,10 +607,28 @@ msgid ""
 "Your user account is now active. You can now log in to access the platform."
 msgstr ""
 
+msgid ""
+"ability to work in a team - acceptance of authority and criticism - "
+"communications with the nursing staff"
+msgstr ""
+
 msgid "achieves with help"
 msgstr ""
 
 msgid "achieves without help"
+msgstr ""
+
+msgid ""
+"active participation in rounds - literature consultations - preparation of "
+"staffs - constructive initiatives"
+msgstr ""
+
+msgid ""
+"anamnesis - clinical examinations - relational requests for lab and RX "
+"examinations - progress notes"
+msgstr ""
+
+msgid "dedication - punctuality - taking responsibility - scientific curiosity"
 msgstr ""
 
 msgid "during"
@@ -525,10 +643,23 @@ msgstr ""
 msgid "gender"
 msgstr ""
 
+msgid ""
+"human contact - ability to inspire confidence - appropriate reactions to the "
+"fears of patients and their families"
+msgstr ""
+
+msgid ""
+"identification of patient problems - identification of the most likely "
+"diagnoses"
+msgstr ""
+
 msgid "language"
 msgstr ""
 
 msgid "last name"
+msgstr ""
+
+msgid "manipulation of instruments specific to your specialty"
 msgstr ""
 
 msgid "name"
@@ -538,6 +669,11 @@ msgid "not achieving"
 msgstr ""
 
 msgid "not observed"
+msgstr ""
+
+msgid ""
+"pathophysiological mechanisms - differential diagnoses - therapeutic "
+"knowledge"
 msgstr ""
 
 msgid "postal code"
