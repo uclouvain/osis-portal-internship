@@ -60,7 +60,7 @@ def view_place_evaluation_form(request, cohort_id, affectation_uuid):
     cohort = InternshipAPIService.get_cohort_detail(cohort_name=cohort_id, person=request.user.person)
     affectations = InternshipAPIService.get_person_affectations(cohort=cohort, person=request.user.person)
     evaluated_affectation = next(
-        affectation for affectation in affectations if affectation['uuid'] == affectation_uuid
+        affectation for affectation in affectations if affectation['uuid'] == str(affectation_uuid)
     )
     evaluation = InternshipAPIService.get_evaluation(person=request.user.person, affectation=evaluated_affectation)
     items = InternshipAPIService.get_evaluation_items(cohort=cohort, person=request.user.person)

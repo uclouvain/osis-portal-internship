@@ -23,6 +23,7 @@
 #    see http://www.gnu.org/licenses/.
 #
 ##############################################################################
+import uuid
 
 import mock
 from django.contrib.auth.models import Permission
@@ -60,14 +61,18 @@ class TestPlaceEvaluation(TestCase):
         self.assertTemplateUsed(response, 'place_evaluation_list.html')
 
     def test_view_place_evaluation_form(self):
-        url = reverse('place_evaluation', kwargs={'cohort_id': "cohort", 'period_name': 'P1'})
+        url = reverse('place_evaluation', kwargs={
+            'cohort_id': "cohort", 'affectation_uuid': MockAPI.affectation_uuid
+        })
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'place_evaluation_form.html')
 
     @mock.patch('internship.services.internship.InternshipAPIService.update_evaluation')
     def test_post_place_evaluation_form(self, mock_update_evaluation):
-        url = reverse('place_evaluation', kwargs={'cohort_id': "cohort", 'period_name': 'P1'})
+        url = reverse('place_evaluation', kwargs={
+            'cohort_id': "cohort", 'affectation_uuid': MockAPI.affectation_uuid
+        })
         response = self.client.post(url, data={'evaluation': {'key': 'value'}})
         self.assertTrue(mock_update_evaluation.called)
         self.assertRedirects(response, reverse('place_evaluation_list', kwargs={'cohort_id': "cohort"}))
