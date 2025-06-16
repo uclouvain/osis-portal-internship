@@ -44,8 +44,11 @@ urlpatterns = [
             path('resume/', resume.view_student_resume, name='student_resume'),
             path('place_evaluation/', include([
                 path('', place_evaluation.view_place_evaluations_list, name='place_evaluation_list'),
-                re_path(r'^(?P<period_name>[\w\s-]+)/$', place_evaluation.view_place_evaluation_form,
-                    name='place_evaluation')
+                re_path(
+                    r'^(?P<affectation_uuid>[\w\s-]+)$',
+                    place_evaluation.view_place_evaluation_form,
+                    name='place_evaluation'
+                )
             ])),
         ])),
     ])),
