@@ -80,7 +80,7 @@
                             <td class="text-center">
                                 <a  {% if affectation.period|is_past and affectation.period.place_evaluation_active %}
                                         class="btn btn-primary"
-                                        href="{% url 'place_evaluation' cohort_id=cohort.name period_name=affectation.period.name %}"
+                                        href="{% url 'place_evaluation' cohort_id=cohort.name affectation_uuid=affectation.uuid %}"
                                     {% else %}
                                         class="btn btn-primary disabled"
                                         href="#" disabled

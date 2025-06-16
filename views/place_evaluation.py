@@ -56,13 +56,12 @@ def view_place_evaluations_list(request, cohort_id):
 @login_required
 @permission_required('base.can_access_internship', raise_exception=True)
 @redirect_if_not_in_cohort
-def view_place_evaluation_form(request, cohort_id, period_name):
+def view_place_evaluation_form(request, cohort_id, affectation_uuid):
     cohort = InternshipAPIService.get_cohort_detail(cohort_name=cohort_id, person=request.user.person)
     affectations = InternshipAPIService.get_person_affectations(cohort=cohort, person=request.user.person)
     evaluated_affectation = next(
-        affectation for affectation in affectations if affectation['period']['name'] == period_name
+        affectation for affectation in affectations if affectation['uuid'] == str(affectation_uuid)
     )
-
     evaluation = InternshipAPIService.get_evaluation(person=request.user.person, affectation=evaluated_affectation)
     items = InternshipAPIService.get_evaluation_items(cohort=cohort, person=request.user.person)
 
