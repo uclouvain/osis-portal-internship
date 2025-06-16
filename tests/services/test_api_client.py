@@ -59,6 +59,8 @@ class TestAPIClient(TestCase):
 
 
 class MockAPI(InternshipApi):
+    affectation_uuid = str(uuid.uuid4())
+
     @classmethod
     def masters_get(*args, **kwargs):
         return {
@@ -175,7 +177,7 @@ class MockAPI(InternshipApi):
     @classmethod
     def person_affectations_cohort_person_uuid_get(*args, **kwargs):
         return {'count': 1, 'results': [PersonAffectationGet(
-            uuid=str(uuid.uuid4()),
+            uuid=MockAPI.affectation_uuid,
             organization=OrganizationGet(uuid=str(uuid.uuid4()), reference='', name=''),
             speciality=SpecialtyGet(uuid=str(uuid.uuid4()), acronym='', parent=None, name=''),
             period=PeriodGet(
