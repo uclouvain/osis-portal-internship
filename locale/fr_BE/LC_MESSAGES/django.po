@@ -88,6 +88,9 @@ msgstr "COTE DE COMPORTEMENT"
 msgid "BELOW the average of the interns"
 msgstr "EN DESSOUS de la moyenne des stagiaires"
 
+msgid "Base skills score"
+msgstr "Cote de compétences de socle"
+
 msgid "Behavior Evaluation"
 msgstr "Évaluation du comportement"
 
@@ -136,6 +139,9 @@ msgstr "Ville"
 
 msgid "Civility"
 msgstr "Civilité"
+
+msgid "Clinical skills score"
+msgstr "Cote de compétences cliniques"
 
 msgid "Comments"
 msgstr "Commentaires"
