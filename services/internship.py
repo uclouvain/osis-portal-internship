@@ -56,6 +56,8 @@ class InternshipServiceException(ApiException):
 class InternshipAPIService:
     @classmethod
     def get_master(cls, person):
+        if not person.email or person.email == '-':
+            return None
         return get_first_paginated_result(
             InternshipAPIClient().masters_get(
                 search=person.email, **utils.build_mandatory_auth_headers(person)
